@@ -65,3 +65,42 @@ body{
 .dropdown:hover .dropdown-content{
     display: block;
 }
+
+/* Tables */
+table{
+    width: 100%;
+    margin-bottom: 30px;
+    border-collapse: collapse;
+}
+
+th{
+    background-color: #333;
+    color: white;
+    padding: 10px;
+    text-align: center;
+}
+
+td{
+    padding: 10px;
+    text-align: center;
+    border: 1px solid #ccc;
+}
+
+/* Improved Tables */
+.nfl-table{
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 30px;
+}
+.nfl-header{
+    background-color: #333;
+    color:white;
+    padding: 10px;
+    text-align: center;
+    font-size: 1.2em;
+}
+.nfl-cell{
+    padding: 10px;
+    text-align: center;
+    border: 1px solid #ccc;
+}
