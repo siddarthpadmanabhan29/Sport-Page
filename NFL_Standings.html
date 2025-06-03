@@ -1,26 +1,117 @@
-<html>
-    <head>
-        <title>NFL Standings</title>
-        <link rel="stylesheet" type ="text/css" href="sports.css">
-    </head>
-    <body>
-        <h1>Sports Entertainment</h1>
-        <hr>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>NFL Standings</title>
+    <link rel="stylesheet" type="text/css" href="sports.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f4f4f4;
+        }
 
-        
+        .nfl-table {
+            width: 90%;
+            border-collapse: collapse;
+            margin: 30px auto;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .nfl-header {
+            background-color: #333;
+            color: white;
+            padding: 15px;
+            text-align: center;
+            font-size: 1.3em;
+            font-weight: bold;
+        }
+
+        .nfl-cell {
+            padding: 15px;
+            text-align: center;
+            border: 1px solid #ccc;
+            font-size: 1em;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            background-color: #f9f9f9;
+            transition: background-color 0.3s;
+        }
+
+        .nfl-cell:hover {
+            background-color: #e0f00f;
+            cursor: pointer;
+        }
+
+        .team-logo {
+            width: 36px;
+            height: 36px;
+            border-radius: 4px;
+            object-fit: contain;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .positive {
+            color: green;
+        }
+
+        .negative {
+            color: red;
+        }
+
+        th {
+            background-color: #333;
+            color: white;
+            padding: 10px;
+            font-weight: bold;
+        }
+
+        td {
+            padding: 12px;
+            border: 1px solid #ccc;
+        }
+
+        .division-header {
+            background-color: #444;
+            color: white;
+            font-size: 1.2em;
+            padding: 12px;
+            text-align: left;
+            font-weight: bold;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        .bar {
+            margin: 10px auto;
+            text-align: center;
+        }
+
+
+    </style>
+</head>
+<body>
+    <h1>Sports Entertainment</h1>
+    <hr>
+
     <div class="bar">
-        <a href = "main.html">Home</a>
-
+        <a href="main.html">Home</a>
         <div class="dropdown">
             <button class="dropbtn">NFL</button>
             <div class="dropdown-content">
-                <a href = "NFL_Teams.html">Teams</a>
-                <a href = "#NFL">Schedule</a>
-                <a href = "NFL_Standings.html">Standings</a>
-                <a href = "#NBA">News</a>
+                <a href="NFL_Teams.html">Teams</a>
+                <a href="#NFL">Schedule</a>
+                <a href="NFL_Standings.html">Standings</a>
+                <a href="#NFL">News</a>
             </div>
         </div>
-
         <div class="dropdown">
             <button class="dropbtn">NBA</button>
             <div class="dropdown-content">
@@ -59,17 +150,99 @@
                 <a href = "">Grand Slams</a>
             </div>
         </div>
-        
-        
-      
     </div>
     
-    <div style="padding:16px">
-        <h3>Welcome to NFL Standings! </h3>
-        <p>This page is still in the works! In the mean time take a look at the NFL Teams Page!</p>
-    </div>
+    <p>Based on 2024-2025 Season Currently!</p>
+    <div id="standings-container"></div>
+    <script>
+        const nflData = {
+            "AFC East": [
+                {
+                    team: "Buffalo Bills",
+                    logo: "https://a.espncdn.com/i/teamlogos/nfl/500/buf.png",
+                    w: 13, l: 3, t: 0, pct: ".765", home: "8-0", away: "5-3",
+                    div: "4-1", conf: "9-2", pf: 455, pa: 289, diff: 166, streak: "W5"
+                },
+                {
+                    team: "Miami Dolphins",
+                    logo: "https://a.espncdn.com/i/teamlogos/nfl/500/mia.png",
+                    w: 13, l: 3, t: 0, pct: ".765", home: "8-0", away: "5-3",
+                    div: "4-1", conf: "9-2", pf: 455, pa: 289, diff: 166, streak: "W5"
+                },
+                {
+                    team: "New England Patriots",
+                    logo: "https://upload.wikimedia.org/wikipedia/en/b/b9/New_England_Patriots_logo.svg",
+                    w: 13, l: 3, t: 0, pct: ".765", home: "8-0", away: "5-3",
+                    div: "4-1", conf: "9-2", pf: 455, pa: 289, diff: 166, streak: "W5"
+                },
+                {
+                    team: "New York Jets",
+                    logo: "https://a.espncdn.com/i/teamlogos/nfl/500/nyj.png",
+                    w: 13, l: 3, t: 0, pct: ".765", home: "8-0", away: "5-3",
+                    div: "4-1", conf: "9-2", pf: 455, pa: 289, diff: 166, streak: "W5"
+                }
+            ]
+            
+        };
 
+        const container = document.getElementById("standings-container");
 
+        for (const [division, teams] of Object.entries(nflData)) {
+            const table = document.createElement("table");
+            table.className = "nfl-table";
 
-    </body>
+            // Division Header
+            const divHeaderRow = document.createElement("tr");
+            const divHeaderCell = document.createElement("td");
+            divHeaderCell.colSpan = 13;
+            divHeaderCell.className = "division-header";
+            divHeaderCell.textContent = division;
+            divHeaderRow.appendChild(divHeaderCell);
+            table.appendChild(divHeaderRow);
+
+            // Column Headers
+            const headerRow = document.createElement("tr");
+            const headers = ["Team", "W", "L", "T", "Pct", "HOME", "AWAY", "DIV", "CONF", "PF", "PA", "Diff", "STRK"];
+            headers.forEach(header => {
+                const th = document.createElement("th");
+                th.textContent = header;
+                headerRow.appendChild(th);
+            });
+            table.appendChild(headerRow);
+
+            // Team Rows
+            teams.forEach(team => {
+                const row = document.createElement("tr");
+
+                const teamCell = document.createElement("td");
+                teamCell.className = "nfl-cell";
+                const logoImg = document.createElement("img");
+                logoImg.src = team.logo;
+                logoImg.alt = team.team + " logo";
+                logoImg.className = "team-logo";
+                const teamName = document.createElement("span");
+                teamName.textContent = team.team;
+                teamCell.appendChild(logoImg);
+                teamCell.appendChild(teamName);
+                row.appendChild(teamCell);
+
+                const fields = ["w", "l", "t", "pct", "home", "away", "div", "conf", "pf", "pa", "diff", "streak"];
+                fields.forEach(field => {
+                    const td = document.createElement("td");
+                    if (field === "diff") {
+                        td.className = team.diff > 0 ? "positive" : team.diff < 0 ? "negative" : "";
+                        td.textContent = (team.diff > 0 ? "+" : "") + team.diff;
+                    } else {
+                        td.textContent = team[field];
+                    }
+                    row.appendChild(td);
+                });
+
+                table.appendChild(row);
+            });
+
+            container.appendChild(table);
+        }
+    </script>
+</body>
 </html>
