@@ -34,7 +34,7 @@ document.addEventListener("DOMContentLoaded",() =>{
         "San Diego Padres": "https://www.mlbstatic.com/team-logos/team-cap-on-light/135.svg",
         "San Francisco Giants": "https://www.mlbstatic.com/team-logos/team-cap-on-light/137.svg",
         "Seattle Mariners": "https://www.mlbstatic.com/team-logos/team-primary-on-light/136.svg",
-        "St. Louis Cardinals": "hhttps://www.mlbstatic.com/team-logos/team-cap-on-light/138.svg",
+        "St. Louis Cardinals": "https://www.mlbstatic.com/team-logos/team-cap-on-light/138.svg",
         "Tampa Bay Rays": "https://www.mlbstatic.com/team-logos/team-cap-on-light/139.svg",
         "Texas Rangers": "https://www.mlbstatic.com/team-logos/team-cap-on-light/140.svg",
         "Toronto Blue Jays": "https://www.mlbstatic.com/team-logos/team-cap-on-light/141.svg",
@@ -42,19 +42,19 @@ document.addEventListener("DOMContentLoaded",() =>{
         
     }
 
-    const container = document.getElementById("nfl-container");
+    const container = document.getElementById("mlb-container");
 
     for (const [division, teams] of Object.entries(divisions)) {
         //Creates a table for each division
         const table = document.createElement("table");
-        table.classList.add("nfl-table");
+        table.classList.add("mlb-table");
 
         // Creates a header row for the division name
         const headerRow = document.createElement("tr");
         const header = document.createElement("th");
         header.colSpan = "4";
         header.textContent = division;
-        header.classList.add("nfl-header");
+        header.classList.add("mlb-header");
         headerRow.appendChild(header);
         table.appendChild(headerRow);
 
@@ -63,7 +63,7 @@ document.addEventListener("DOMContentLoaded",() =>{
             const teamRow = document.createElement("tr");
             for (let j = i; j < i+2 && j<teams.length; j++) {
                 const teamCell = document.createElement("td");
-                teamCell.classList.add("nfl-cell");
+                teamCell.classList.add("mlb-cell");
 
                 const logo = document.createElement("img");
                 logo.src = teamlogos[teams[j]] || ""; // Placeholder if logo not found
