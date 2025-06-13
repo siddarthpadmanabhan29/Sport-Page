@@ -42,19 +42,19 @@ document.addEventListener("DOMContentLoaded",() =>{
         
     }
 
-    const container = document.getElementById("mlb-container");
+    const container = document.getElementById("nfl-container");
 
     for (const [division, teams] of Object.entries(divisions)) {
         //Creates a table for each division
         const table = document.createElement("table");
-        table.classList.add("mlb-table");
+        table.classList.add("nfl-table");
 
         // Creates a header row for the division name
         const headerRow = document.createElement("tr");
         const header = document.createElement("th");
         header.colSpan = "4";
         header.textContent = division;
-        header.classList.add("mlb-header");
+        header.classList.add("nfl-header");
         headerRow.appendChild(header);
         table.appendChild(headerRow);
 
@@ -63,7 +63,7 @@ document.addEventListener("DOMContentLoaded",() =>{
             const teamRow = document.createElement("tr");
             for (let j = i; j < i+2 && j<teams.length; j++) {
                 const teamCell = document.createElement("td");
-                teamCell.classList.add("mlb-cell");
+                teamCell.classList.add("nfl-cell");
 
                 const logo = document.createElement("img");
                 logo.src = teamlogos[teams[j]] || ""; // Placeholder if logo not found
