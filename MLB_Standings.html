@@ -156,12 +156,12 @@
     <div id="standings-container"></div>
     <script>
         const nflData = {
-            "AFC East": [
+            "AL East": [
                 {
-                    team: "Buffalo Bills",
-                    logo: "https://static.www.nfl.com/t_person_squared_mobile/f_auto/league/api/clubs/logos/BUF",
-                    w: 13, l: 4, t: 0, pct: ".765", home: "8-0", away: "5-4",
-                    div: "5-1", conf: "9-3", pf: 525, pa: 368, diff: 157, streak: "L1"
+                    team: "New York Yankees",
+                    logo: "https://www.mlbstatic.com/team-logos/team-cap-on-light/147.svg",
+                    w: 41, l: 25, pct: .621, gb: "-", l10: "6-4", home: "21-12",
+                    away: "20-13", g500: "25-17", rs: 365, ra: 259, diff: 106, streak: "W2"
                 },
                 {
                     team: "Miami Dolphins",
@@ -384,7 +384,7 @@
 
             // Column Headers
             const headerRow = document.createElement("tr");
-            const headers = ["Team", "W", "L", "T", "Pct", "HOME", "AWAY", "DIV", "CONF", "PF", "PA", "Diff", "STRK"];
+            const headers = ["Team", "W", "L", "Pct", "GB", "L10", "HOME", "AWAY", ">.500", "RS", "RA", "Diff", "STRK"];
             headers.forEach(header => {
                 const th = document.createElement("th");
                 th.textContent = header;
@@ -408,7 +408,7 @@
                 teamCell.appendChild(teamName);
                 row.appendChild(teamCell);
 
-                const fields = ["w", "l", "t", "pct", "home", "away", "div", "conf", "pf", "pa", "diff", "streak"];
+                const fields = ["w", "l", "pct", "gb", "l10", "home", "away", "g500", "rs", "ra", "diff", "streak"];
                 fields.forEach(field => {
                     const td = document.createElement("td");
                     if (field === "diff") {
