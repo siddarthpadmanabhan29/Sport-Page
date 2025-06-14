@@ -1,0 +1,222 @@
+<html>
+    <head>
+        <title>NFL Schedule</title>
+        <link rel="stylesheet" type ="text/css" href="sports.css">
+        <style>
+            body{
+                font-family: Arial,sans-serif;;
+            }
+            .nfl-cell{
+                display:flex;
+                align-items: center;
+                margin-bottom: 20px;
+                gap: 10px;
+                padding: 10px;
+                border: 1px solid #ccc;
+                border-radius: 10px;
+                background-color: #f9f9f9;
+            }
+            .team{
+                display: flex;
+                align-items: center;
+                gap: 10px;
+            }
+            .team-logo{
+                width:40px;
+                height:40px;
+            }
+            .details{
+                margin-left: auto;
+                text-align: right;
+                font-size: 14px;
+                color:#555;
+            }
+
+            .content select,
+            .content input[type="text"]{
+                padding: 10px;
+                font-size: 16px;
+                border: 2px solid #ccc;
+                border-radius: 8px;
+                outline: none;
+                transition: border-color 0.3s ease, box-shadow 0.3s ease;
+                margin-right: 10px;
+            }
+            .content select:hover,
+            .content input[type="text"]:hover,
+            .content select:focus,
+            .content input[type="text"]:focus{
+                border-color: red;
+                box-shadow: 0 0 5px rgba(253, 2, 2, 0.954);
+            }
+
+            .content select{
+                background-color: #fff;
+                color: #333;
+                appearance: none;
+                background-image: url("data:image/svg+xml;utf8, <svg fill='black' height='16' viewBox='0 0 24 24' width='16' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/></svg>");
+                background-repeat: no-repeat;
+                background-position: right 18px center;
+                background-size: 16px;
+                padding-right: 30px;
+            }
+
+
+
+        </style>
+    </head>
+    <body>
+        <h1>Sports Entertainment</h1>
+        <hr>
+
+        
+    <div class="bar">
+
+        <a href = "index.html">Home</a>
+
+        <div class="dropdown">
+            <button class="dropbtn">NFL</button>
+            <div class="dropdown-content">
+                <a href = "NFL_Teams.html">Teams</a>
+                <a href = "NFL_Schedule.html">Schedule</a>
+                <a href = "NFL_Standings.html">Standings</a>
+                <a href = "#NBA">News</a>
+            </div>
+        </div>
+
+        <div class="dropdown">
+            <button class="dropbtn">NBA</button>
+            <div class="dropdown-content">
+                <a href = "">Teams</a>
+                <a href = "">Schedule</a>
+                <a href = "">Standings</a>
+                <a href = "">News</a>
+            </div>
+        </div>
+
+        <div class="dropdown">
+            <button class="dropbtn">MLB</button>
+            <div class="dropdown-content">
+                <a href = "MLB_Teams.html">Teams</a>
+                <a href = "">Schedule</a>
+                <a href = "MLB_Standings.html">Standings</a>
+                <a href = "">News</a>
+            </div>
+        </div>
+
+        <div class="dropdown">
+            <button class="dropbtn">IPL</button>
+            <div class="dropdown-content">
+                <a href = "">Teams</a>
+                <a href = "">Schedule</a>
+                <a href = "">Standings</a>
+                <a href = "">News</a>
+            </div>
+        </div>
+
+        <div class="dropdown">
+            <button class="dropbtn">Tennis</button>
+            <div class="dropdown-content">
+                <a href = "">Schedule</a>
+                <a href = "">Rankings</a>
+                <a href = "">Grand Slams</a>
+            </div>
+        </div>
+        
+        
+      
+    </div>
+    
+    <div style="padding:16px">
+        <div class = "content" style = "display:flex; justify-content: space-between; margin-bottom: 20px;">
+            <div>
+                <label for="WeekPicker">Week:</label>
+                <select id="WeekPicker"></select>
+            </div>
+            <div> 
+                <input type="text" id="searchInput" placeholder="Search by team name...">
+            </div>
+        </div>
+        <div id="schedule" class="schedule"></div>
+    </div>
+
+    <script>
+        const weeks = 18;
+        const scheduleContainer = document.getElementById('schedule');
+        const weekPicker = document.getElementById('WeekPicker');
+        const searchInput = document.getElementById('searchInput');
+        const scheduleData = {
+            1: [
+                {
+                    home: { name: 'Kansas City Chiefs', logo: 'https://static.www.nfl.com/t_headshot_desktop_2x/f_auto/league/api/clubs/logos/KC' },
+                    away: { name: 'Detroit Lions', logo: 'https://static.www.nfl.com/t_headshot_desktop_2x/f_auto/league/api/clubs/logos/DET' },
+                    time: '8:20 PM ET',
+                    network: 'NBC',
+                    date: 'September 7, 2023'
+                    
+                },
+                {
+                    home: { name: 'Dallas Cowboys', logo: 'https://static.www.nfl.com/t_headshot_desktop_2x/f_auto/league/api/clubs/logos/DAL' },
+                    away: { name: 'New York Giants', logo: 'https://static.www.nfl.com/t_headshot_desktop_2x/f_auto/league/api/clubs/logos/NYG' },
+                    time: '8:20 PM ET',
+                    network: 'NBC',
+                    date: 'September 10, 2023'
+                }
+            ]
+        };
+
+        for (let i = 1; i <= weeks; i++) {
+            const option = document.createElement('option');
+            option.value = i;
+            option.textContent = `Week ${i}`;
+            weekPicker.appendChild(option);
+        }
+
+        function renderSchedule(week, searchTerm = '')
+        {
+            scheduleContainer.innerHTML = '';
+            const games = scheduleData[week] || [];
+            games.forEach(game=> {
+                const homeTeam = game.home;
+                const awayTeam = game.away;
+
+                if(
+                    homeTeam.name.toLowerCase().includes(searchTerm) ||
+                    awayTeam.name.toLowerCase().includes(searchTerm)
+                ){
+                    const gameDiv = document.createElement('div');
+                    gameDiv.className = 'nfl-cell';
+                    gameDiv.innerHTML = `
+                    <div class = "team"><img class="team-logo" src="${awayTeam.logo}" alt="">${awayTeam.name}</div>
+                    <div class="vs">at</div>
+                    <div class = "team"><img class="team-logo" src="${homeTeam.logo}" alt="${homeTeam.name}"> ${homeTeam.name}</div>
+                    <div class="details">${game.time} | ${game.network} | ${game.date}</div>
+                    `;
+                    scheduleContainer.appendChild(gameDiv);
+                }
+            });
+        }
+
+        weekPicker.addEventListener('change', () =>{
+            const selectedWeek = parseInt(weekPicker.value);
+            const searchTerm = searchInput.value.toLowerCase();
+            renderSchedule(selectedWeek, searchTerm);
+
+        });
+
+        searchInput.addEventListener('input', () => {
+            const selectedWeek = parseInt(weekPicker.value);
+            const searchTerm = searchInput.value.toLowerCase();
+            renderSchedule(selectedWeek, searchTerm);
+        });
+
+        weekPicker.value = 1;
+        renderSchedule(1);
+
+
+    </script>
+
+
+
+    </body>
+</html>
