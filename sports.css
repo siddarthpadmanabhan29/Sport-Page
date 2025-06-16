@@ -216,3 +216,7 @@ body.dark-mode input[type="text"]{
     box-shadow: none;
 }
 
+body.dark-mode .details{
+    color: #ccc
+}
+
