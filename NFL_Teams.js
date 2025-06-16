@@ -44,6 +44,50 @@ document.addEventListener("DOMContentLoaded",() =>{
         "Tennessee Titans": "https://static.www.nfl.com/t_headshot_desktop_2x/f_auto/league/api/clubs/logos/TEN",
         "Washington Commanders": "https://static.www.nfl.com/t_headshot_desktop_2x/f_auto/league/api/clubs/logos/WAS"
         
+    };
+
+    const teamColors = {
+        "Arizona Cardinals": "#97233F",
+        "Atlanta Falcons": "#A71930",  
+        "Baltimore Ravens": "#241773",
+        "Buffalo Bills": "#00338D",
+        "Carolina Panthers": "#0085CA",
+        "Chicago Bears": "#0B162A",
+        "Cincinnati Bengals": "#FB4F14",
+        "Cleveland Browns": "#311D00",
+        "Dallas Cowboys": "#002244",
+        "Denver Broncos": "#002244",
+        "Detroit Lions": "#0076B6",
+        "Green Bay Packers": "#203731",
+        "Houston Texans": "#03202F",
+        "Indianapolis Colts": "#002C5F",
+        "Jacksonville Jaguars": "#006778",
+        "Kansas City Chiefs": "#E31837",
+        "Las Vegas Raiders": "#000000",
+        "Los Angeles Chargers": "#0080FF",
+        "Los Angeles Rams": "#003594",
+        "Miami Dolphins": "#008E97",
+        "Minnesota Vikings": "#4F2683",
+        "New England Patriots": "#002244",
+        "New Orleans Saints": "#D3BC8D",
+        "New York Giants": "#0B2265",
+        "New York Jets": "#2C9A2C",
+        "Philadelphia Eagles": "#004C54",
+        "Pittsburgh Steelers": "#FFB612",
+        "San Francisco 49ers": "#AA0000",
+        "Seattle Seahawks": "#002244",
+        "Tampa Bay Buccaneers": "#D50A0A",
+        "Tennessee Titans": "#4B92DB",
+        "Washington Commanders": "#773141"
+    };
+
+    function getContrastYIQ(hexcolor) {
+        const hex = hexcolor.replace("#", "");
+        const r = parseInt(hex.substring(0, 2), 16);
+        const g = parseInt(hex.substring(2, 2), 16);
+        const b = parseInt(hex.substring(4, 2), 16);
+        const luminance = (0.299 * r + 0.587 * g + 0.114 * b);
+        return luminance >= 150 ? "#000000" : "#FFFFFF";
     }
 
     const container = document.getElementById("nfl-container");
@@ -66,6 +110,7 @@ document.addEventListener("DOMContentLoaded",() =>{
         for (let i = 0; i< teams.length; i+=2){
             const teamRow = document.createElement("tr");
             for (let j = i; j < i+2 && j<teams.length; j++) {
+                const currentTeam = teams[j];
                 const teamCell = document.createElement("td");
                 teamCell.classList.add("nfl-cell");
 
@@ -81,18 +126,24 @@ document.addEventListener("DOMContentLoaded",() =>{
                 teamCell.appendChild(logo);
                 teamCell.appendChild(name);
                 teamRow.appendChild(teamCell);
+
+                const originalBG = teamCell.style.backgroundColor|| "#f9f9f9";
+                const originalColor = teamCell.style.color || "#000000";
+                teamCell.addEventListener("mouseover", () => {
+                    const teamColor = teamColors[currentTeam] || "#e0f00f"; 
+                    teamCell.style.backgroundColor = teamColor;
+                    teamCell.style.color = getContrastYIQ(teamColor);
+                });
+
+                teamCell.addEventListener("mouseout", () => {
+                    teamCell.style.backgroundColor = originalBG;
+                    teamCell.style.color = originalColor;
+                });
+
             }
             table.appendChild(teamRow);
         }
         container.appendChild(table);
-        //const teamRow = document.createElement("tr");
-        //teams.forEach(team => {
-            //const teamCell = document.createElement("td");
-            //teamCell.textContent = team;
-            //teamCell.style.padding = "10px";
-            //teamCell.style.border = "1px solid #ccc";
-            //teamRow.appendChild(teamCell);
-        //});
         
 
 
