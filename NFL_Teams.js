@@ -136,8 +136,8 @@ document.addEventListener("DOMContentLoaded",() =>{
                 });
 
                 teamCell.addEventListener("mouseout", () => {
-                    teamCell.style.backgroundColor = originalBG;
-                    teamCell.style.color = originalColor;
+                    teamCell.style.backgroundColor = "";
+                    teamCell.style.color = "";
                 });
 
             }
