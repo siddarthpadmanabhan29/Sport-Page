@@ -220,3 +220,92 @@ body.dark-mode .details{
     color: #ccc
 }
 
+.hero{
+    background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.6)), url('images_Sports.png') no-repeat center center/cover;
+    color:white;
+    text-align: center;
+    padding: 100px 20px;
+}
+
+.hero h2{
+    font-family: 'Bebas Neue', cursive;
+    font-size: 3em;
+    margin-bottom: 10px;
+}
+
+.quick-links{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap:20px;
+    padding: 30px;
+}
+
+.league-img-card{
+    display: block;
+    width: 160px;
+    height: 100px;
+    overflow: hidden;
+    border-radius: 10px;
+    background-color: #f9f9f9;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.league-img-card img{
+    width:100%;
+    height:100%;
+    object-fit: cover;
+    padding: 8px;
+    transition: 0.3s;
+}
+.league-img-card:hover{
+    background-color: #ff3333;
+    transform: scale(1.05);
+}
+.league-img-card:hover img{
+    transform: scale(1.1);
+}
+
+.section{
+    padding: 40px 20px;
+    text-align: center;
+}
+
+.news ul{
+    list-style-type: none;
+    padding: 0;
+}
+.news li{
+    padding: 10px;
+}
+.news a{
+    color: #0066cc;
+    text-decoration: none;
+}
+
+.news a:hover{
+    text-decoration: underline;
+}
+
+footer{
+    text-align: center;
+    padding: 20px;
+    background-color: #333;
+    color: white;
+    margin-top: 40px;
+}
+
+.logo{
+    font-family: 'Bebas Neue', cursive;
+    font-size: 3em;
+    letter-spacing: 2px;
+    background: linear-gradient(to right, #ff0000, #3333ff);
+    -webkit-background-clip: text;
+    color: transparent;
+    text-align: center;
+    margin: 20px 0;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+}
+
+
