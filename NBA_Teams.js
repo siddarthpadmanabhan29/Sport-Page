@@ -40,6 +40,48 @@ document.addEventListener("DOMContentLoaded",() =>{
         "Utah Jazz": "https://cdn.nba.com/logos/nba/1610612762/primary/L/logo.svg",
         "Washington Wizards": "https://cdn.nba.com/logos/nba/1610612764/primary/L/logo.svg",
         
+    };
+
+    const teamColors = {
+        "Atlanta Hawks": "#E03A3E",
+        "Boston Celtics": "#007A33",
+        "Brooklyn Nets": "#000000",
+        "Charlotte Hornets": "#00788C",
+        "Chicago Bulls": "#CE1141",
+        "Cleveland Cavaliers": "#6F263D",
+        "Dallas Mavericks": "#00538C",
+        "Denver Nuggets": "#4B92DB",
+        "Detroit Pistons": "#006BB6",
+        "Golden State Warriors": "#006BB6",
+        "Houston Rockets": "#CE1141",
+        "Indiana Pacers": "#002D62",
+        "LA Clippers": "#C8102E",
+        "Los Angeles Lakers": "#552583",
+        "Memphis Grizzlies": "#5D76A9",
+        "Miami Heat": "#98002E",
+        "Milwaukee Bucks": "#00471B",
+        "Minnesota Timberwolves": "#0C2340",
+        "New Orleans Pelicans": "#004B87",
+        "New York Knicks": "#006BB6",
+        "Oklahoma City Thunder": "#007AC1",
+        "Orlando Magic": "#0077C8",
+        "Philadelphia 76ers": "#006BB6",
+        "Phoenix Suns": "#1D1160",
+        "Portland Trail Blazers": "#E03A3E",
+        "Sacramento Kings": "#5A2D81",
+        "San Antonio Spurs": "#C4CED4",
+        "Toronto Raptors": "#CE1141",
+        "Utah Jazz": "#002B5C",
+        "Washington Wizards": "#002B5C"
+    };
+
+    function getContrastYIQ(hexcolor) {
+        const hex = hexcolor.replace("#", "");
+        const r = parseInt(hex.substring(0, 2), 16);
+        const g = parseInt(hex.substring(2, 2), 16);
+        const b = parseInt(hex.substring(4, 2), 16);
+        const luminance = (0.299 * r + 0.587 * g + 0.114 * b);
+        return luminance >= 150 ? "#000000" : "#FFFFFF";
     }
 
     const container = document.getElementById("nfl-container");
@@ -77,21 +119,24 @@ document.addEventListener("DOMContentLoaded",() =>{
                 teamCell.appendChild(logo);
                 teamCell.appendChild(name);
                 teamRow.appendChild(teamCell);
+
+                const originalBG = teamCell.style.backgroundColor || "#f9f9f9";
+                const originalColor = teamCell.style.color || "#000000";
+                teamCell.addEventListener("mouseover", () => {
+                    const teamColor = teamColors[teams[j]] || "#e0f00f"; 
+                    teamCell.style.backgroundColor = teamColor;
+                    teamCell.style.color = getContrastYIQ(teamColor);
+                });
+
+                teamCell.addEventListener("mouseout", () => {
+                    teamCell.style.backgroundColor = "";
+                    teamCell.style.color = "";
+                });
             }
             table.appendChild(teamRow);
         }
         container.appendChild(table);
-        //const teamRow = document.createElement("tr");
-        //teams.forEach(team => {
-            //const teamCell = document.createElement("td");
-            //teamCell.textContent = team;
-            //teamCell.style.padding = "10px";
-            //teamCell.style.border = "1px solid #ccc";
-            //teamRow.appendChild(teamCell);
-        //});
         
-
-
     }
 
 });
