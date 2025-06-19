@@ -15,7 +15,30 @@ document.addEventListener("DOMContentLoaded",() =>{
         "Royal Challengers Bengaluru": "https://a.espncdn.com/i/teamlogos/cricket/500/335970.png",
         "Sunrisers Hyderabad": "https://a.espncdn.com/i/teamlogos/cricket/500/628333.png",
         
+    };
+
+    const teamColors = {
+        "Chennai Super Kings": "#F7E03D",
+        "Delhi Capitals": "#17449B",
+        "Gujarat Titans": "#0C2340",
+        "Kolkata Knight Riders": "#512888",
+        "Lucknow Super Giants": "#F7E03D",
+        "Mumbai Indians": "#005DAA",
+        "Punjab Kings": "#E30613",
+        "Rajasthan Royals": "#1E90FF",
+        "Royal Challengers Bengaluru": "#C8102E",
+        "Sunrisers Hyderabad": "#FF9800"
+    };
+
+    function getContrastYIQ(hexcolor) {
+        const hex = hexcolor.replace("#", "");
+        const r = parseInt(hex.substring(0, 2), 16);
+        const g = parseInt(hex.substring(2, 2), 16);
+        const b = parseInt(hex.substring(4, 2), 16);
+        const luminance = (0.299 * r + 0.587 * g + 0.114 * b);
+        return luminance >= 150 ? "#000000" : "#FFFFFF";
     }
+
 
     const container = document.getElementById("nfl-container");
 
@@ -52,18 +75,23 @@ document.addEventListener("DOMContentLoaded",() =>{
                 teamCell.appendChild(logo);
                 teamCell.appendChild(name);
                 teamRow.appendChild(teamCell);
+
+                const originalBG = teamCell.style.backgroundColor|| "#f9f9f9";
+                const originalColor = teamCell.style.color || "#000000";
+                teamCell.addEventListener("mouseover", () => {
+                    const teamColor = teamColors[teams[j]] || "#e0f00f"; 
+                    teamCell.style.backgroundColor = teamColor;
+                    teamCell.style.color = getContrastYIQ(teamColor);
+                });
+                teamCell.addEventListener("mouseout", () => {
+                    teamCell.style.backgroundColor = "";
+                    teamCell.style.color = "";
+                });
             }
             table.appendChild(teamRow);
         }
         container.appendChild(table);
-        //const teamRow = document.createElement("tr");
-        //teams.forEach(team => {
-            //const teamCell = document.createElement("td");
-            //teamCell.textContent = team;
-            //teamCell.style.padding = "10px";
-            //teamCell.style.border = "1px solid #ccc";
-            //teamRow.appendChild(teamCell);
-        //});
+        
         
 
 
