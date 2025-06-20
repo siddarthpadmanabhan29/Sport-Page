@@ -121,3 +121,12 @@ body.dark-mode .team-card{
 body.dark-mode .team-card:hover{
     filter:brightness(1.1);
 }
+
+.team-link{
+    text-decoration: none;
+    color: inherit;
+}
+
+.team-link:hover{
+    text-decoration: none;
+}

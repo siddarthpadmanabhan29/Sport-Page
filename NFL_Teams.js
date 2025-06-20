@@ -81,6 +81,41 @@ document.addEventListener("DOMContentLoaded",() =>{
         "Washington Commanders": "#773141"
     };
 
+    const teamLinks = {
+        "Arizona Cardinals": "https://www.azcardinals.com/",
+        "Atlanta Falcons": "https://www.atlantafalcons.com/",
+        "Baltimore Ravens": "https://www.baltimoreravens.com/",
+        "Buffalo Bills": "https://www.buffalobills.com/",
+        "Carolina Panthers": "https://www.panthers.com/",
+        "Chicago Bears": "https://www.chicagobears.com/",
+        "Cincinnati Bengals": "https://www.bengals.com/",
+        "Cleveland Browns": "https://www.clevelandbrowns.com/",
+        "Dallas Cowboys": "https://www.dallascowboys.com/",
+        "Denver Broncos": "https://www.denverbroncos.com/",
+        "Detroit Lions": "https://www.detroitlions.com/",
+        "Green Bay Packers": "https://www.packers.com/",    
+        "Houston Texans": "https://www.houstontexans.com/",
+        "Indianapolis Colts": "https://www.colts.com/",
+        "Jacksonville Jaguars": "https://www.jaguars.com/",
+        "Kansas City Chiefs": "https://www.chiefs.com/",
+        "Las Vegas Raiders": "https://www.raiders.com/",
+        "Los Angeles Chargers": "https://www.chargers.com/",
+        "Los Angeles Rams": "https://www.therams.com/",
+        "Miami Dolphins": "https://www.miamidolphins.com/",
+        "Minnesota Vikings": "https://www.vikings.com/",
+        "New England Patriots": "https://www.patriots.com/",
+        "New Orleans Saints": "https://www.neworleanssaints.com/",
+        "New York Giants": "https://www.giants.com/",
+        "New York Jets": "https://www.newyorkjets.com/",
+        "Philadelphia Eagles": "https://www.philadelphiaeagles.com/",
+        "Pittsburgh Steelers": "https://www.steelers.com/",
+        "San Francisco 49ers": "https://www.49ers.com/",
+        "Seattle Seahawks": "https://www.seahawks.com/",
+        "Tampa Bay Buccaneers": "https://www.buccaneers.com/",
+        "Tennessee Titans": "https://www.tennesseetitans.com/",
+        "Washington Commanders": "https://www.commanders.com/"
+    };
+
     function getContrastYIQ(hexcolor) {
         const hex = hexcolor.replace("#", "");
         const r = parseInt(hex.substring(0, 2), 16);
@@ -103,6 +138,11 @@ document.addEventListener("DOMContentLoaded",() =>{
         grid.className = "team-grid";
 
         teams.forEach(team => {
+            const link = document.createElement("a");
+            link.href = teamLinks[team];
+            link.target = "_blank"; 
+            link.className = "team-link";
+
             const card = document.createElement("div");
             card.className = "team-card";
             card.setAttribute("data-team", team.toLowerCase());
@@ -117,12 +157,10 @@ document.addEventListener("DOMContentLoaded",() =>{
 
             card.appendChild(logo);
             card.appendChild(name);
-            grid.appendChild(card);
-            container.appendChild(grid);
+            link.appendChild(card);
+            grid.appendChild(link);
             
-            //Work on Hover Effects
-            const originalBG = card.style.backgroundColor;
-            const originalText = card.style.color;
+            
 
             card.addEventListener("mouseover", () => {
                 const color = teamColors[team] || "#ccc";
@@ -134,7 +172,9 @@ document.addEventListener("DOMContentLoaded",() =>{
             card.style.backgroundColor = "";
             card.style.color = "";
         });
-    });       
+    });   
+    container.appendChild(grid);
+      
 }
 
 //Improve Search Functionality
