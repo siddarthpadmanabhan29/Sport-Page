@@ -94,59 +94,59 @@ document.addEventListener("DOMContentLoaded",() =>{
 
     for (const [division, teams] of Object.entries(divisions)) {
         //Creates a table for each division
-        const table = document.createElement("table");
-        table.classList.add("nfl-table");
+        const divisionTitle = document.createElement("div");
+        divisionTitle.className = "division-header";
+        divisionTitle.textContent = division;
+        container.appendChild(divisionTitle);
 
-        // Creates a header row for the division name
-        const headerRow = document.createElement("tr");
-        const header = document.createElement("th");
-        header.colSpan = "4";
-        header.textContent = division;
-        header.classList.add("nfl-header");
-        headerRow.appendChild(header);
-        table.appendChild(headerRow);
+        const grid = document.createElement("div");
+        grid.className = "team-grid";
 
-        // Creates a row for each team in the division
-        for (let i = 0; i< teams.length; i+=2){
-            const teamRow = document.createElement("tr");
-            for (let j = i; j < i+2 && j<teams.length; j++) {
-                const currentTeam = teams[j];
-                const teamCell = document.createElement("td");
-                teamCell.classList.add("nfl-cell");
+        teams.forEach(team => {
+            const card = document.createElement("div");
+            card.className = "team-card";
+            card.setAttribute("data-team", team.toLowerCase());
 
-                const logo = document.createElement("img");
-                logo.src = teamlogos[teams[j]] || ""; // Placeholder if logo not found
-                logo.alt = teams[j];
-                logo.classList.add("team-logo");
+            const logo = document.createElement("img");
+            logo.src = teamlogos[team];
+            logo.alt = team;
 
-                const name = document.createElement("span");
-                name.textContent = teams[j];
+            const name = document.createElement("div");
+            name.className = "team-name";
+            name.textContent = team;
 
+            card.appendChild(logo);
+            card.appendChild(name);
+            grid.appendChild(card);
+            container.appendChild(grid);
+            
+            //Work on Hover Effects
+            const originalBG = card.style.backgroundColor;
+            const originalText = card.style.color;
 
-                teamCell.appendChild(logo);
-                teamCell.appendChild(name);
-                teamRow.appendChild(teamCell);
+            card.addEventListener("mouseover", () => {
+                const color = teamColors[team] || "#ccc";
+                card.style.backgroundColor = color;
+                card.style.color = getContrastYIQ(color); 
+        });
 
-                const originalBG = teamCell.style.backgroundColor|| "#f9f9f9";
-                const originalColor = teamCell.style.color || "#000000";
-                teamCell.addEventListener("mouseover", () => {
-                    const teamColor = teamColors[currentTeam] || "#e0f00f"; 
-                    teamCell.style.backgroundColor = teamColor;
-                    teamCell.style.color = getContrastYIQ(teamColor);
-                });
+        card.addEventListener("mouseout", () => {
+            card.style.backgroundColor = "";
+            card.style.color = "";
+        });
+    });       
+}
 
-                teamCell.addEventListener("mouseout", () => {
-                    teamCell.style.backgroundColor = "";
-                    teamCell.style.color = "";
-                });
-
-            }
-            table.appendChild(teamRow);
-        }
-        container.appendChild(table);
-        
-
-
-    }
-
+//Improve Search Functionality
+document.getElementById("search").addEventListener("input", (e)=> {
+    const query = e.target.value.toLowerCase();
+    document.querySelectorAll(".team-card").forEach(card => {
+        const name = card.getAttribute("data-team");
+        card.style.display = name.includes(query) ? "flex" : "none";
+    });
 });
+
+    
+});
+
+       
