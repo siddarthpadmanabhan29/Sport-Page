@@ -24,4 +24,7 @@ To view fully polished site: Check the link within this Github repository to int
 
 Keep in mind:
 *** The tennis page is currently under works! ***
+
 *** The news pages for each league sport is currently under works! ***
+
+*** Most of the completed code is entirely focused on the NFL League as I will soon expand towards other league sports! ***
