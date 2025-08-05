@@ -22,7 +22,7 @@ This will take you to a web browser to view and see changes in real time.
 
 To view fully polished site: Check the link within this Github repository to interact with the website.
 
-Keep in mind:
+In Progress/Coming Soon:
 *** The tennis page is currently under works! ***
 
 *** The news pages for each league sport is currently under works! ***
