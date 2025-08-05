@@ -64,7 +64,7 @@ document.addEventListener("DOMContentLoaded",() =>{
                 teamCell.classList.add("nfl-cell");
 
                 const logo = document.createElement("img");
-                logo.src = teamlogos[teams[j]] || ""; // Placeholder if logo not found
+                logo.src = teamlogos[teams[j]] || "";
                 logo.alt = teams[j];
                 logo.classList.add("team-logo");
 
@@ -76,6 +76,7 @@ document.addEventListener("DOMContentLoaded",() =>{
                 teamCell.appendChild(name);
                 teamRow.appendChild(teamCell);
 
+                // Hover effect to change background color to team color
                 const originalBG = teamCell.style.backgroundColor|| "#f9f9f9";
                 const originalColor = teamCell.style.color || "#000000";
                 teamCell.addEventListener("mouseover", () => {
