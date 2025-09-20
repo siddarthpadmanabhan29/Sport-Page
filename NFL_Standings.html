@@ -155,224 +155,55 @@
         </div>
     </div>
     
-    <p>Based on 2024-2025 Season Currently!</p>
+    <p>
+        Select Season:
+        <select id="season-select">
+            <option value="2025-26">2025-26</option>
+            <option value="2024-25">2024-25</option>
+        </select>
+    </p>
     <div id="standings-container"></div>
     <script>
         const nflData = {
+            "2024-25": {
             "AFC East": [
                 {
                     team: "Buffalo Bills",
                     logo: "https://static.www.nfl.com/t_person_squared_mobile/f_auto/league/api/clubs/logos/BUF",
-                    w: 13, l: 4, t: 0, pct: ".765", home: "8-0", away: "5-4",
+                    w: 13, l: 4, t: 0, home: "8-0", away: "5-4",
                     div: "5-1", conf: "9-3", pf: 525, pa: 368, diff: 157, streak: "L1"
                 },
                 {
                     team: "Miami Dolphins",
                     logo: "https://static.www.nfl.com/t_person_squared_mobile/f_auto/league/api/clubs/logos/MIA",
-                    w: 8, l: 9, t: 0, pct: ".471", home: "5-3", away: "3-6",
+                    w: 8, l: 9, t: 0, home: "5-3", away: "3-6",
                     div: "3-3", conf: "6-6", pf: 345, pa: 364, diff: -19, streak: "L1"
                 },
-                {
-                    team: "New York Jets",
-                    logo: "https://static.www.nfl.com/t_headshot_desktop_2x/f_auto/league/api/clubs/logos/NYJ",
-                    w: 5, l: 12, t: 0, pct: ".294", home: "3-5", away: "2-7",
-                    div: "2-4", conf: "5-7", pf: 338, pa: 404, diff: -66, streak: "W1"
-                },
-                {
-                    team: "New England Patriots",
-                    logo: "https://static.www.nfl.com/t_person_squared_mobile/f_auto/league/api/clubs/logos/NE",
-                    w: 4, l: 13, t: 0, pct: ".235", home: "2-6", away: "2-7",
-                    div: "2-4", conf: "3-9", pf: 289, pa: 417, diff: -128, streak: "W1"
-                }
+                // ... rest of AFC East (same as your data)
             ],
-            "AFC North": [
+            // ... rest of divisions (your existing 24-25 data)
+        },
+        "2025-26": {
+            "AFC East": [
                 {
-                    team: "Baltimore Ravens",
-                    logo: "https://static.www.nfl.com/t_headshot_desktop_2x/f_auto/league/api/clubs/logos/BAL",
-                    w: 12, l: 5, t: 0, pct: ".706", home: "6-2", away: "6-3",
-                    div: "4-2", conf: "8-4", pf: 518, pa: 361, diff: 157, streak: "W4"
+                    team: "Buffalo Bills",
+                    logo: "https://static.www.nfl.com/t_person_squared_mobile/f_auto/league/api/clubs/logos/BUF",
+                    w: 0, l: 0, t: 0, home: "0-0", away: "0-0",
+                    div: "0-0", conf: "0-0", pf: 0, pa: 0, diff: 0, streak: "-"
                 },
                 {
-                    team: "Pittsburgh Steelers",
-                    logo: "https://static.www.nfl.com/t_headshot_desktop_2x/f_auto/league/api/clubs/logos/PIT",
-                    w: 10, l: 7, t: 0, pct: ".588", home: "5-3", away: "5-4",
-                    div: "3-3", conf: "7-5", pf: 380, pa: 347, diff: 33, streak: "L4"
+                    team: "Miami Dolphins",
+                    logo: "https://static.www.nfl.com/t_person_squared_mobile/f_auto/league/api/clubs/logos/MIA",
+                    w: 0, l: 0, t: 0, home: "0-0", away: "0-0",
+                    div: "0-0", conf: "0-0", pf: 0, pa: 0, diff: 0, streak: "-"
                 },
-                {
-                    team: "Cincinnati Bengals",
-                    logo: "https://static.www.nfl.com/t_headshot_desktop_2x/f_auto/league/api/clubs/logos/CIN",
-                    w: 9, l: 8, t: 0, pct: ".529", home: "3-5", away: "6-3",
-                    div: "3-3", conf: "6-6", pf: 472, pa: 434, diff: 38, streak: "W5"
-                },
-                {
-                    team: "Cleveland Browns",
-                    logo: "https://static.www.nfl.com/t_headshot_desktop_2x/f_auto/league/api/clubs/logos/CLE",
-                    w: 3, l: 14, t: 0, pct: ".176", home: "2-6", away: "1-8",
-                    div: "2-4", conf: "3-9", pf: 258, pa: 435, diff: -177, streak: "L6"
-                }
-            ],
-            "AFC South": [
-                {
-                    team: "Houston Texans",
-                    logo: "https://static.www.nfl.com/t_headshot_desktop_2x/f_auto/league/api/clubs/logos/HOU",
-                    w: 10, l: 7, t: 0, pct: ".588", home: "5-3", away: "5-4",
-                    div: "5-1", conf: "8-4", pf: 372, pa: 372, diff: 0, streak: "W1"
-                },
-                {
-                    team: "Indianapolis Colts",
-                    logo: "https://static.www.nfl.com/t_headshot_desktop_2x/f_auto/league/api/clubs/logos/IND",
-                    w: 8, l: 9, t: 0, pct: ".471", home: "5-3", away: "3-6",
-                    div: "3-3", conf: "7-5", pf: 377, pa: 427, diff: -50, streak: "W1"
-                },
-                {
-                    team: "Jacksonville Jaguars",
-                    logo: "https://static.www.nfl.com/t_headshot_desktop_2x/f_auto/league/api/clubs/logos/JAX",
-                    w: 4, l: 13, t: 0, pct: ".235", home: "3-5", away: "1-8",
-                    div: "3-3", conf: "4-8", pf: 320, pa: 435, diff: -115, streak: "L1"
-                },
-                {
-                    team: "Tennessee Titans",
-                    logo: "https://static.www.nfl.com/t_headshot_desktop_2x/f_auto/league/api/clubs/logos/TEN",
-                    w: 3, l: 14, t: 0, pct: ".176", home: "1-7", away: "2-7",
-                    div: "1-5", conf: "3-9", pf: 311, pa: 460, diff: -149, streak: "L6"
-                }
-            ],
-             "AFC West": [
-                {
-                    team: "Kansas City Chiefs",
-                    logo: "https://static.www.nfl.com/t_headshot_desktop_2x/f_auto/league/api/clubs/logos/KC",
-                    w: 15, l: 2, t: 0, pct: ".882", home: "8-0", away: "7-2",
-                    div: "5-1", conf: "10-2", pf: 385, pa: 326, diff: 59, streak: "L1"
-                },
-                {
-                    team: "Los Angeles Chargers",
-                    logo: "https://static.www.nfl.com/t_headshot_desktop_2x/f_auto/league/api/clubs/logos/LAC",
-                    w: 11, l: 6, t: 0, pct: ".647", home: "5-3", away: "6-3",
-                    div: "4-2", conf: "8-4", pf: 402, pa: 301, diff: 101, streak: "W3"
-                },
-                {
-                    team: "Denver Broncos",
-                    logo: "https://static.www.nfl.com/t_headshot_desktop_2x/f_auto/league/api/clubs/logos/DEN",
-                    w: 10, l: 7, t: 0, pct: ".588", home: "6-2", away: "4-5",
-                    div: "3-3", conf: "6-6", pf: 425, pa: 311, diff: 114, streak: "W1"
-                },
-                {
-                    team: "Las Vegas Raiders",
-                    logo: "https://static.www.nfl.com/t_headshot_desktop_2x/f_auto/league/api/clubs/logos/LV",
-                    w: 4, l: 13, t: 0, pct: ".235", home: "2-6", away: "2-7",
-                    div: "0-6", conf: "3-9", pf: 309, pa: 434, diff: -125, streak: "L1"
-                }
-            ],
-            "NFC East": [
-                {
-                    team: "Philadelphia Eagles",
-                    logo: "https://static.www.nfl.com/t_headshot_desktop_2x/f_auto/league/api/clubs/logos/PHI",
-                    w: 14, l: 3, t: 0, pct: ".824", home: "8-1", away: "6-2",
-                    div: "5-1", conf: "9-3", pf: 463, pa: 303, diff: 160, streak: "W2"
-                },
-                {
-                    team: "Washington Commanders",
-                    logo: "https://static.www.nfl.com/t_headshot_desktop_2x/f_auto/league/api/clubs/logos/WAS",
-                    w: 12, l: 5, t: 0, pct: ".706", home: "7-2", away: "5-3",
-                    div: "4-2", conf: "9-3", pf: 485, pa: 391, diff: 94, streak: "W5"
-                },
-                {
-                    team: "Dallas Cowboys",
-                    logo: "https://static.www.nfl.com/t_headshot_desktop_2x/f_auto/league/api/clubs/logos/DAL",
-                    w: 7, l: 10, t: 0, pct: ".412", home: "2-7", away: "5-3",
-                    div: "3-3", conf: "5-7", pf: 350, pa: 468, diff: -118, streak: "L2"
-                },
-                {
-                    team: "New York Giants",
-                    logo: "https://static.www.nfl.com/t_headshot_desktop_2x/f_auto/league/api/clubs/logos/NYG",
-                    w: 3, l: 14, t: 0, pct: ".176", home: "1-8", away: "2-6",
-                    div: "0-6", conf: "1-11", pf: 273, pa: 415, diff: -142, streak: "L1"
-                }
-            ],
-             "NFC North": [
-                {
-                    team: "Detroit Lions",
-                    logo: "https://static.www.nfl.com/t_headshot_desktop_2x/f_auto/league/api/clubs/logos/DET",
-                    w: 15, l: 2, t: 0, pct: ".882", home: "7-2", away: "8-0",
-                    div: "6-0", conf: "11-1", pf: 564, pa: 342, diff: 222, streak: "W3"
-                },
-                {
-                    team: "Minnesota Vikings",
-                    logo: "https://static.www.nfl.com/t_headshot_desktop_2x/f_auto/league/api/clubs/logos/MIN",
-                    w: 14, l: 3, t: 0, pct: ".824", home: "8-1", away: "6-2",
-                    div: "4-2", conf: "9-3", pf: 432, pa: 332, diff: 100, streak: "L1"
-                },
-                {
-                    team: "Green Bay Packers",
-                    logo: "https://static.www.nfl.com/t_headshot_desktop_2x/f_auto/league/api/clubs/logos/GB",
-                    w: 11, l: 6, t: 0, pct: ".647", home: "6-3", away: "5-3",
-                    div: "1-5", conf: "6-6", pf: 460, pa: 338, diff: 122, streak: "L2"
-                },
-                {
-                    team: "Chicago Bears",
-                    logo: "https://static.www.nfl.com/t_headshot_desktop_2x/f_auto/league/api/clubs/logos/CHI",
-                    w: 5, l: 12, t: 0, pct: ".294", home: "4-5", away: "1-7",
-                    div: "1-5", conf: "3-9", pf: 310, pa: 370, diff: -60, streak: "W1"
-                }
-            ],
-            "NFC South": [
-                {
-                    team: "Tampa Bay Buccaneers",
-                    logo: "https://static.www.nfl.com/t_headshot_desktop_2x/f_auto/league/api/clubs/logos/TB",
-                    w: 10, l: 7, t: 0, pct: ".588", home: "5-4", away: "5-3",
-                    div: "4-2", conf: "8-4", pf: 502, pa: 385, diff: 117, streak: "W2"
-                },
-                {
-                    team: "Atlanta Falcons",
-                    logo: "https://static.www.nfl.com/t_headshot_desktop_2x/f_auto/league/api/clubs/logos/ATL",
-                    w: 8, l: 9, t: 0, pct: ".471", home: "4-5", away: "4-4",
-                    div: "4-2", conf: "7-5", pf: 389, pa: 423, diff: -34, streak: "L2"
-                },
-                {
-                    team: "Carolina Panthers",
-                    logo: "https://static.www.nfl.com/t_headshot_desktop_2x/f_auto/league/api/clubs/logos/CAR",
-                    w: 5, l: 12, t: 0, pct: ".294", home: "3-6", away: "2-6",
-                    div: "2-4", conf: "4-8", pf: 341, pa: 534, diff: -194, streak: "W1"
-                },
-                {
-                    team: "New Orleans Saints",
-                    logo: "https://static.www.nfl.com/t_headshot_desktop_2x/f_auto/league/api/clubs/logos/NO",
-                    w: 5, l: 12, t: 0, pct: ".294", home: "3-6", away: "2-6",
-                    div: "2-4", conf: "4-8", pf: 338, pa: 398, diff: -60, streak: "L4"
-                }
-            ],
-             "NFC West": [
-                {
-                    team: "Los Angeles Rams",
-                    logo: "https://static.www.nfl.com/t_headshot_desktop_2x/f_auto/league/api/clubs/logos/LAR",
-                    w: 10, l: 7, t: 0, pct: ".588", home: "5-4", away: "5-3",
-                    div: "4-2", conf: "6-6", pf: 367, pa: 386, diff: -19, streak: "L1"
-                },
-                {
-                    team: "Seattle Seahawks",
-                    logo: "https://static.www.nfl.com/t_headshot_desktop_2x/f_auto/league/api/clubs/logos/SEA",
-                    w: 10, l: 7, t: 0, pct: ".588", home: "3-6", away: "7-1",
-                    div: "4-2", conf: "6-6", pf: 375, pa: 368, diff: 7, streak: "W2"
-                },
-                {
-                    team: "Arizona Cardinals",
-                    logo: "https://static.www.nfl.com/t_headshot_desktop_2x/f_auto/league/api/clubs/logos/ARI",
-                    w: 8, l: 9, t: 0, pct: ".471", home: "6-3", away: "2-6",
-                    div: "3-3", conf: "4-8", pf: 400, pa: 379, diff: 21, streak: "W1"
-                },
-                {
-                    team: "San Francisco 49ers",
-                    logo: "https://static.www.nfl.com/t_headshot_desktop_2x/f_auto/league/api/clubs/logos/SF",
-                    w: 6, l: 11, t: 0, 
-                    home: "4-5", away: "2-6",
-                    div: "1-5", conf: "4-8", pf: 389, pa: 436, diff: -47, streak: "L4"
-
-                }
-            ],
-
-        };
+                // ... add placeholders for rest of divisions
+            ]
+        }
+    };
 
         const container = document.getElementById("standings-container");
+        const seasonSelect = document.getElementById("season-select");
 
 // Function to calculate win percentage
 function calcPct(w, l, t) {
@@ -380,10 +211,11 @@ function calcPct(w, l, t) {
 }
 
 // Function to render tables
-function renderTables() {
+function renderTables(season) {
+    const nflSeasons = nflData[season];
     container.innerHTML = ""; // clear container
 
-    for (const [division, teams] of Object.entries(nflData)) {
+    for (const [division, teams] of Object.entries(nflSeasons)) {
         // Sort teams by pct
         // Calculate pct for each team and sort by pct
         teams.forEach(team => {
@@ -444,7 +276,7 @@ function renderTables() {
                     td.addEventListener("input", () => {
                         team[field] = parseInt(td.textContent) || 0;
                         team.pct = calcPct(team.w, team.l, team.t);
-                        renderTables(); // re-render to recalc pct and sort
+                        renderTables(seasonSelect.value); // re-render to recalc pct and sort
                     });
                 } else if (field === "pct") {
                     td.textContent = team.pct;
@@ -463,7 +295,13 @@ function renderTables() {
 }
 
 // Initial render
-renderTables();
+const defaultSeason = Object.keys(nflData).sort().pop();
+seasonSelect.value = defaultSeason;
+renderTables(defaultSeason);
+
+seasonSelect.addEventListener("change", () => {
+    renderTables(seasonSelect.value);
+});
     </script>
     <button id="darkModeToggle">🌙</button>
 
