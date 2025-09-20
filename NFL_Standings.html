@@ -362,8 +362,10 @@
                 {
                     team: "San Francisco 49ers",
                     logo: "https://static.www.nfl.com/t_headshot_desktop_2x/f_auto/league/api/clubs/logos/SF",
-                    w: 6, l: 11, t: 0, pct: ".353", home: "4-5", away: "2-6",
+                    w: 6, l: 11, t: 0, 
+                    home: "4-5", away: "2-6",
                     div: "1-5", conf: "4-8", pf: 389, pa: 436, diff: -47, streak: "L4"
+
                 }
             ],
 
@@ -371,62 +373,96 @@
 
         const container = document.getElementById("standings-container");
 
-        for (const [division, teams] of Object.entries(nflData)) {
-            const table = document.createElement("table");
-            table.className = "nfl-table";
+// Function to calculate win percentage
+function calcPct(w, l, t) {
+    return ((w + 0.5 * t) / (w + l + t)).toFixed(3);
+}
 
-            // Division Header
-            const divHeaderRow = document.createElement("tr");
-            const divHeaderCell = document.createElement("td");
-            divHeaderCell.colSpan = 13;
-            divHeaderCell.className = "division-header";
-            divHeaderCell.textContent = division;
-            divHeaderRow.appendChild(divHeaderCell);
-            table.appendChild(divHeaderRow);
+// Function to render tables
+function renderTables() {
+    container.innerHTML = ""; // clear container
 
-            // Column Headers
-            const headerRow = document.createElement("tr");
-            const headers = ["Team", "W", "L", "T", "Pct", "HOME", "AWAY", "DIV", "CONF", "PF", "PA", "Diff", "STRK"];
-            headers.forEach(header => {
-                const th = document.createElement("th");
-                th.textContent = header;
-                headerRow.appendChild(th);
+    for (const [division, teams] of Object.entries(nflData)) {
+        // Sort teams by pct
+        // Calculate pct for each team and sort by pct
+        teams.forEach(team => {
+            team.pct = calcPct(team.w, team.l, team.t);
+        });
+        teams.sort((a, b) => parseFloat(b.pct) - parseFloat(a.pct));
+
+        const table = document.createElement("table");
+        table.className = "nfl-table";
+
+        // Division Header
+        const divHeaderRow = document.createElement("tr");
+        const divHeaderCell = document.createElement("td");
+        divHeaderCell.colSpan = 13;
+        divHeaderCell.className = "division-header";
+        divHeaderCell.textContent = division;
+        divHeaderRow.appendChild(divHeaderCell);
+        table.appendChild(divHeaderRow);
+
+        // Column Headers
+        const headerRow = document.createElement("tr");
+        const headers = ["Team", "W", "L", "T", "Pct", "HOME", "AWAY", "DIV", "CONF", "PF", "PA", "Diff", "STRK"];
+        headers.forEach(header => {
+            const th = document.createElement("th");
+            th.textContent = header;
+            headerRow.appendChild(th);
+        });
+        table.appendChild(headerRow);
+
+        // Team Rows
+        teams.forEach(team => {
+            const row = document.createElement("tr");
+
+            // Team cell with logo
+            const teamCell = document.createElement("td");
+            teamCell.className = "nfl-cell";
+            const logoImg = document.createElement("img");
+            logoImg.src = team.logo;
+            logoImg.alt = team.team + " logo";
+            logoImg.className = "team-logo";
+            const teamName = document.createElement("span");
+            teamName.textContent = team.team;
+            teamCell.appendChild(logoImg);
+            teamCell.appendChild(teamName);
+            row.appendChild(teamCell);
+
+            // Fields
+            const fields = ["w", "l", "t", "pct", "home", "away", "div", "conf", "pf", "pa", "diff", "streak"];
+            fields.forEach(field => {
+                const td = document.createElement("td");
+
+                if (field === "diff") {
+                    td.className = team.diff > 0 ? "positive" : team.diff < 0 ? "negative" : "";
+                    td.textContent = (team.diff > 0 ? "+" : "") + team.diff;
+                } else if (field === "w" || field === "l" || field === "t") {
+                    td.contentEditable = true;
+                    td.textContent = team[field];
+                    td.addEventListener("input", () => {
+                        team[field] = parseInt(td.textContent) || 0;
+                        team.pct = calcPct(team.w, team.l, team.t);
+                        renderTables(); // re-render to recalc pct and sort
+                    });
+                } else if (field === "pct") {
+                    td.textContent = team.pct;
+                } else {
+                    td.textContent = team[field];
+                }
+
+                row.appendChild(td);
             });
-            table.appendChild(headerRow);
 
-            // Team Rows
-            teams.forEach(team => {
-                const row = document.createElement("tr");
+            table.appendChild(row);
+        });
 
-                const teamCell = document.createElement("td");
-                teamCell.className = "nfl-cell";
-                const logoImg = document.createElement("img");
-                logoImg.src = team.logo;
-                logoImg.alt = team.team + " logo";
-                logoImg.className = "team-logo";
-                const teamName = document.createElement("span");
-                teamName.textContent = team.team;
-                teamCell.appendChild(logoImg);
-                teamCell.appendChild(teamName);
-                row.appendChild(teamCell);
+        container.appendChild(table);
+    }
+}
 
-                const fields = ["w", "l", "t", "pct", "home", "away", "div", "conf", "pf", "pa", "diff", "streak"];
-                fields.forEach(field => {
-                    const td = document.createElement("td");
-                    if (field === "diff") {
-                        td.className = team.diff > 0 ? "positive" : team.diff < 0 ? "negative" : "";
-                        td.textContent = (team.diff > 0 ? "+" : "") + team.diff;
-                    } else {
-                        td.textContent = team[field];
-                    }
-                    row.appendChild(td);
-                });
-
-                table.appendChild(row);
-            });
-
-            container.appendChild(table);
-        }
+// Initial render
+renderTables();
     </script>
     <button id="darkModeToggle">🌙</button>
 
