@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded",() =>{
+document.addEventListener("DOMContentLoaded", () => {
     const divisions = {
         "Atlantic": ["Boston Celtics", "Brooklyn Nets", "New York Knicks", "Philadelphia 76ers", "Toronto Raptors"],
         "Central": ["Chicago Bulls", "Cleveland Cavaliers", "Detroit Pistons", "Indiana Pacers", "Milwaukee Bucks"],
@@ -39,7 +39,6 @@ document.addEventListener("DOMContentLoaded",() =>{
         "Toronto Raptors": "https://cdn.nba.com/logos/nba/1610612761/primary/L/logo.svg",
         "Utah Jazz": "https://cdn.nba.com/logos/nba/1610612762/primary/L/logo.svg",
         "Washington Wizards": "https://cdn.nba.com/logos/nba/1610612764/primary/L/logo.svg",
-        
     };
 
     const teamColors = {
@@ -52,7 +51,7 @@ document.addEventListener("DOMContentLoaded",() =>{
         "Dallas Mavericks": "#00538C",
         "Denver Nuggets": "#4B92DB",
         "Detroit Pistons": "#006BB6",
-        "Golden State Warriors": "#006BB6",
+        "Golden State Warriors": "#1D428A",
         "Houston Rockets": "#CE1141",
         "Indiana Pacers": "#002D62",
         "LA Clippers": "#C8102E",
@@ -75,69 +74,107 @@ document.addEventListener("DOMContentLoaded",() =>{
         "Washington Wizards": "#002B5C"
     };
 
+    const teamLinks = {
+        "Atlanta Hawks": "https://www.nba.com/hawks/",
+        "Boston Celtics": "https://www.nba.com/celtics/",
+        "Brooklyn Nets": "https://www.nba.com/nets/",
+        "Charlotte Hornets": "https://www.nba.com/hornets/",
+        "Chicago Bulls": "https://www.nba.com/bulls/",
+        "Cleveland Cavaliers": "https://www.nba.com/cavaliers/",
+        "Dallas Mavericks": "https://www.nba.com/mavericks/",
+        "Denver Nuggets": "https://www.nba.com/nuggets/",
+        "Detroit Pistons": "https://www.nba.com/pistons/",
+        "Golden State Warriors": "https://www.nba.com/warriors/",
+        "Houston Rockets": "https://www.nba.com/rockets/",
+        "Indiana Pacers": "https://www.nba.com/pacers/",
+        "LA Clippers": "https://www.nba.com/clippers/",
+        "Los Angeles Lakers": "https://www.nba.com/lakers/",
+        "Memphis Grizzlies": "https://www.nba.com/grizzlies/",
+        "Miami Heat": "https://www.nba.com/heat/",
+        "Milwaukee Bucks": "https://www.nba.com/bucks/",
+        "Minnesota Timberwolves": "https://www.nba.com/timberwolves/",
+        "New Orleans Pelicans": "https://www.nba.com/pelicans/",
+        "New York Knicks": "https://www.nba.com/knicks/",
+        "Oklahoma City Thunder": "https://www.nba.com/thunder/",
+        "Orlando Magic": "https://www.nba.com/magic/",
+        "Philadelphia 76ers": "https://www.nba.com/sixers/",
+        "Phoenix Suns": "https://www.nba.com/suns/",
+        "Portland Trail Blazers": "https://www.nba.com/blazers/",
+        "Sacramento Kings": "https://www.nba.com/kings/",
+        "San Antonio Spurs": "https://www.nba.com/spurs/",
+        "Toronto Raptors": "https://www.nba.com/raptors/",
+        "Utah Jazz": "https://www.nba.com/jazz/",
+        "Washington Wizards": "https://www.nba.com/wizards/"
+    };
+
     function getContrastYIQ(hexcolor) {
         const hex = hexcolor.replace("#", "");
         const r = parseInt(hex.substring(0, 2), 16);
-        const g = parseInt(hex.substring(2, 2), 16);
-        const b = parseInt(hex.substring(4, 2), 16);
+        const g = parseInt(hex.substring(2, 4), 16);
+        const b = parseInt(hex.substring(4, 6), 16);
         const luminance = (0.299 * r + 0.587 * g + 0.114 * b);
         return luminance >= 150 ? "#000000" : "#FFFFFF";
-        
     }
 
-    const container = document.getElementById("nfl-container");
+    const container = document.getElementById("nba-container"); 
 
     for (const [division, teams] of Object.entries(divisions)) {
-        //Creates a table for each division
-        const table = document.createElement("table");
-        table.classList.add("nfl-table");
+        // Creates a table for each division
+        const divisionTitle = document.createElement("div");
+        divisionTitle.className = "division-header";
+        divisionTitle.textContent = division;
+        container.appendChild(divisionTitle);
 
-        // Creates a header row for the division name
-        const headerRow = document.createElement("tr");
-        const header = document.createElement("th");
-        header.colSpan = "4";
-        header.textContent = division;
-        header.classList.add("nfl-header");
-        headerRow.appendChild(header);
-        table.appendChild(headerRow);
+        const grid = document.createElement("div");
+        grid.className = "team-grid";
 
-        // Creates a row for each team in the division
-        for (let i = 0; i< teams.length; i+=2){
-            const teamRow = document.createElement("tr");
-            for (let j = i; j < i+2 && j<teams.length; j++) {
-                const teamCell = document.createElement("td");
-                teamCell.classList.add("nfl-cell");
+        teams.forEach(team => {
+            const link = document.createElement("a");
+            link.href = teamLinks[team];
+            link.target = "_blank"; 
+            link.className = "team-link";
 
-                const logo = document.createElement("img");
-                logo.src = teamlogos[teams[j]] || ""; // Placeholder if logo not found
-                logo.alt = teams[j];
-                logo.classList.add("team-logo");
+            const card = document.createElement("div");
+            card.className = "team-card";
+            card.setAttribute("data-team", team.toLowerCase());
 
-                const name = document.createElement("span");
-                name.textContent = teams[j];
+            const logo = document.createElement("img");
+            logo.src = teamlogos[team];
+            logo.alt = team;
 
+            const name = document.createElement("div");
+            name.className = "team-name";
+            name.textContent = team;
 
-                teamCell.appendChild(logo);
-                teamCell.appendChild(name);
-                teamRow.appendChild(teamCell);
+            card.appendChild(logo);
+            card.appendChild(name);
+            link.appendChild(card);
+            grid.appendChild(link);
 
-                const originalBG = teamCell.style.backgroundColor || "#f9f9f9";
-                const originalColor = teamCell.style.color || "#000000";
-                teamCell.addEventListener("mouseover", () => {
-                    const teamColor = teamColors[teams[j]] || "#e0f00f"; 
-                    teamCell.style.backgroundColor = teamColor;
-                    teamCell.style.color = getContrastYIQ(teamColor);
-                });
+            
+            card.addEventListener("mouseover", () => {
+                const color = teamColors[team] || "#ccc";
+                card.style.backgroundColor = color;
+                card.style.color = getContrastYIQ(color); 
+            });
 
-                teamCell.addEventListener("mouseout", () => {
-                    teamCell.style.backgroundColor = "";
-                    teamCell.style.color = "";
-                });
-            }
-            table.appendChild(teamRow);
-        }
-        container.appendChild(table);
-        
-    }
+            card.addEventListener("mouseout", () => {
+                card.style.backgroundColor = "";
+                card.style.color = "";
+            });
+        }); 
 
+        container.appendChild(grid);
+    } 
+    const searchInput = document.getElementById("search");
+
+    document.getElementById("search").addEventListener("input", (e) => {
+    const query = e.target.value.toLowerCase();
+    document.querySelectorAll(".team-card").forEach(card => {
+        const name = card.getAttribute("data-team");
+        card.style.display = name.includes(query) ? "flex" : "none";
+    });
+});
+
+    
 });
