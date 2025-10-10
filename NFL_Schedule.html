@@ -11,27 +11,62 @@
             .nfl-cell{
                 display:flex;
                 align-items: center;
+                justify-content: space-between;
                 margin-bottom: 20px;
-                gap: 10px;
-                padding: 10px;
-                border: 1px solid #ccc;
-                border-radius: 10px;
-                background-color: #f9f9f9;
+                padding: 15px 20px;
+                border-radius: 15px;
+                background: #fff;
+                box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+                transition: transform 0.2s ease, box-shadow 0.2s ease;
+            }
+            .nfl-cell:hover{
+                transform: translateY(-4px);
+                box-shadow: 0 8px 18px rgba(0,0,0,0.15);
             }
             .team{
                 display: flex;
                 align-items: center;
-                gap: 10px;
+                gap: 12px;
+                min-width: 160px;
             }
             .team-logo{
-                width:40px;
-                height:40px;
+                width:50px;
+                height:50px;
+            }
+            .team-info{
+                display: flex;
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .team-name{
+                font-weight:bold;
+                font-size: 16px;
+            }
+            .team-record{
+                font-size: 13px;
+                color:#777;
+            }
+            .score{
+                font-size: 22px;
+                font-weight: bold;
+                color: #222;
+                margin: 0 15px;
+            }
+            .dark-mode .score{
+                font-size: 22px;
+                font-weight: bold;
+                color: #fff;
+                margin: 0 15px;
+            }
+            .score.pending{
+                color: #aaa;
+                font-size: 16px;
             }
             .details{
-                margin-left: auto;
                 text-align: right;
                 font-size: 14px;
                 color:#555;
+                min-width: 180px;
             }
 
             .content select,
@@ -150,19 +185,21 @@
         const scheduleData = {
             1: [
                 {
-                    home: { name: 'Kansas City Chiefs', logo: 'https://static.www.nfl.com/t_headshot_desktop_2x/f_auto/league/api/clubs/logos/KC' },
-                    away: { name: 'Detroit Lions', logo: 'https://static.www.nfl.com/t_headshot_desktop_2x/f_auto/league/api/clubs/logos/DET' },
+                    away: { name: 'Dallas Cowboys', logo: "https://static.www.nfl.com/t_headshot_desktop_2x/f_auto/league/api/clubs/logos/DAL" , record: '0-1' },
+                    home: { name: 'Philadelphia Eagles', logo: 'https://static.www.nfl.com/t_headshot_desktop_2x/f_auto/league/api/clubs/logos/PHI', record: '1-0' },
                     time: '8:20 PM ET',
                     network: 'NBC',
-                    date: 'September 7, 2023'
+                    date: 'September 5, 2025',
+                    score: {away: 20, home: 24}
                     
                 },
                 {
-                    home: { name: 'Dallas Cowboys', logo: 'https://static.www.nfl.com/t_headshot_desktop_2x/f_auto/league/api/clubs/logos/DAL' },
-                    away: { name: 'New York Giants', logo: 'https://static.www.nfl.com/t_headshot_desktop_2x/f_auto/league/api/clubs/logos/NYG' },
-                    time: '8:20 PM ET',
-                    network: 'NBC',
-                    date: 'September 10, 2023'
+                    away: { name: 'Kansas City Chiefs', logo: 'https://static.www.nfl.com/t_headshot_desktop_2x/f_auto/league/api/clubs/logos/KC', record: '0-1' },
+                    home: { name: 'Los Angeles Chargers', logo: 'https://static.www.nfl.com/t_headshot_desktop_2x/f_auto/league/api/clubs/logos/LAC', record: '1-0' },
+                    time: '8:00 PM ET',
+                    network: 'Youtube',
+                    date: 'September 5, 2025',
+                    score: {away: 21, home: 27}
                 }
             ]
         };
@@ -188,10 +225,31 @@
                 ){
                     const gameDiv = document.createElement('div');
                     gameDiv.className = 'nfl-cell';
+
+                    let scoreHTML = '';
+                    if(game.score){
+                        scoreHTML = `<div class="score">${game.score.away} - ${game.score.home}</div>`;
+                    }
+                    else {
+                        scoreHTML = `<div class="score">@</div>`;
+                    }
+
                     gameDiv.innerHTML = `
-                    <div class = "team"><img class="team-logo" src="${awayTeam.logo}" alt="">${awayTeam.name}</div>
-                    <div class="vs">at</div>
-                    <div class = "team"><img class="team-logo" src="${homeTeam.logo}" alt="${homeTeam.name}"> ${homeTeam.name}</div>
+                    <div class = "team">
+                        <img class="team-logo" src="${awayTeam.logo}" alt="${awayTeam.name}">
+                        <div class="team-info">
+                            <div class="team-name">${awayTeam.name}</div>
+                            <div class="team-record">${awayTeam.record}</div>
+                        </div>
+                    </div>
+                    ${scoreHTML}
+                    <div class = "team">
+                        <img class="team-logo" src="${homeTeam.logo}" alt="${homeTeam.name}">
+                        <div class="team-info">
+                            <div class="team-name">${homeTeam.name}</div>
+                            <div class="team-record">${homeTeam.record}</div>
+                        </div>
+                    </div>
                     <div class="details">${game.time} | ${game.network} | ${game.date}</div>
                     `;
                     scheduleContainer.appendChild(gameDiv);
