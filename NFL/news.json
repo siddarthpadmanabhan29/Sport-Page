@@ -1,0 +1,47 @@
+{
+  "sections": [
+    {
+      "title": "Breaking News",
+      "articles": [
+        {
+          "headline": "Packers activate Christian Watson (knee) from PUP list; WR set for return vs. Steelers",
+          "date": "October 25, 2025",
+          "source": "NFL.com",
+          "content": "The Packers have activated wide receiver Christian Watson (knee; questionable) from the physically unable to perform list, clearing the way for his season debut Sunday night against the Steelers. Watson is set for a return after recovering from the torn ACL he suffered in 2024's regular-season finale. The 26-year-old has served as Green Bay's play-making deep threat when healthy, averaging 16.9 yards per reception through his first three seasons.",
+          "image": "https://static.www.nfl.com/image/upload/t_editorial_landscape_3_4_desktop_2x/f_auto/league/jppqwqjallydtlleq70u.jpg"
+        },
+        {
+          "headline": "Aaron Rodgers Set to Return from Injury",
+          "date": "October 25, 2025",
+          "source": "NFL Network",
+          "content": "Sources say the Jets are activating Aaron Rodgers this week after a speedy recovery from an Achilles injury.",
+          "image": "https://static.www.nfl.com/image/private/t_editorial_landscape_12_desktop/league/wrck5egb9tfhpxb7s4rz"
+        }
+      ]
+    },
+    {
+      "title": "Trending Stories",
+      "articles": [
+        {
+          "headline": "Josh Allen’s MVP Case Growing Stronger",
+          "date": "October 25, 2025",
+          "source": "NFL.com",
+          "content": "After another dominant performance, Josh Allen continues to climb the MVP ladder with Buffalo holding one of the best records in the AFC.",
+          "image": "https://static.www.nfl.com/image/private/t_editorial_landscape_12_desktop/league/bp5v1xoj1m9mjmcwoyxj"
+        }
+      ]
+    },
+    {
+      "title": "Stats Watch",
+      "articles": [
+        {
+          "headline": "Top Passing Leaders — Week 8",
+          "date": "October 25, 2025",
+          "source": "NFL Stats Central",
+          "content": "1. Patrick Mahomes — 2,384 yards\n2. Joe Burrow — 2,190 yards\n3. Lamar Jackson — 2,045 yards",
+          "image": "https://static.www.nfl.com/image/private/t_editorial_landscape_12_desktop/league/r5kdzll2jap4hhzq9xmr"
+        }
+      ]
+    }
+  ]
+}
