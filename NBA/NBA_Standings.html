@@ -95,335 +95,653 @@
             margin: 10px auto;
             text-align: center;
         }
-
-
     </style>
 </head>
 <body>
-    <h1 class="logo">Sports Entertainment</h1>
-    <hr>
+<h1 class="logo">Sports Entertainment</h1>
+<hr>
 
-    <div class="bar">
-        <a href = "../index.html">Home</a>
+<div class="bar">
+    <a href="../index.html">Home</a>
 
-        <div class="dropdown">
-            <button class="dropbtn">NFL</button>
-            <div class="dropdown-content">
-                <a href = "../NFL/NFL_Teams.html">Teams</a>
-                <a href = "../NFL/NFL_Schedule.html">Schedule</a>
-                <a href = "../NFL/NFL_Standings.html">Standings</a>
-                <a href = "">News</a>
-            </div>
+    <div class="dropdown">
+        <button class="dropbtn">NFL</button>
+        <div class="dropdown-content">
+            <a href="../NFL/NFL_Teams.html">Teams</a>
+            <a href="../NFL/NFL_Schedule.html">Schedule</a>
+            <a href="../NFL/NFL_Standings.html">Standings</a>
+            <a href="">News</a>
         </div>
-
-        <div class="dropdown">
-            <button class="dropbtn">NBA</button>
-            <div class="dropdown-content">
-                <a href = "NBA_Teams.html">Teams</a>
-                <a href = "NBA_Schedule.html">Schedule</a>
-                <a href = "NBA_Standings.html">Standings</a>
-                <a href = "">News</a>
-            </div>
-        </div>
-
-        <div class="dropdown">
-            <button class="dropbtn">MLB</button>
-            <div class="dropdown-content">
-                <a href = "../MLB/MLB_Teams.html">Teams</a>
-                <a href = "../MLB/MLB_Schedule.html">Schedule</a>
-                <a href = "../MLB/MLB_Standings.html">Standings</a>
-                <a href = "">News</a>
-            </div>
-        </div>
-
-        <div class="dropdown">
-            <button class="dropbtn">IPL</button>
-            <div class="dropdown-content">
-                <a href = "../IPL/IPL_Teams.html">Teams</a>
-                <a href = "../IPL/IPL_Schedule.html">Schedule</a>
-                <a href = "../IPL/IPL_Standings.html">Standings</a>
-                <a href = "">News</a>
-            </div>
-        </div>
-
-        <div class="dropdown">
-            <button class="dropbtn">Tennis</button>
-            <div class="dropdown-content">
-                <a href = "">Schedule</a>
-                <a href = "">Rankings</a>
-                <a href = "">Grand Slams</a>
-            </div>
-        </div>
-        
-        
-      
     </div>
 
-    <p>
-        Select Season:
-        <select id="season-select">
-            <option value="2025-26">2025-2026</option>
-            <option value="2024-25">2024-2025</option>
-        </select>
-    </p>
+    <div class="dropdown">
+        <button class="dropbtn">NBA</button>
+        <div class="dropdown-content">
+            <a href="NBA_Teams.html">Teams</a>
+            <a href="NBA_Schedule.html">Schedule</a>
+            <a href="NBA_Standings.html">Standings</a>
+            <a href="">News</a>
+        </div>
+    </div>
 
-    <div id="standings-container"></div>
-    <script>
-        const nflData = {
+    <div class="dropdown">
+        <button class="dropbtn">MLB</button>
+        <div class="dropdown-content">
+            <a href="../MLB/MLB_Teams.html">Teams</a>
+            <a href="../MLB/MLB_Schedule.html">Schedule</a>
+            <a href="../MLB/MLB_Standings.html">Standings</a>
+            <a href="">News</a>
+        </div>
+    </div>
+
+    <div class="dropdown">
+        <button class="dropbtn">IPL</button>
+        <div class="dropdown-content">
+            <a href="../IPL/IPL_Teams.html">Teams</a>
+            <a href="../IPL/IPL_Schedule.html">Schedule</a>
+            <a href="../IPL/IPL_Standings.html">Standings</a>
+            <a href="">News</a>
+        </div>
+    </div>
+
+    <div class="dropdown">
+        <button class="dropbtn">Tennis</button>
+        <div class="dropdown-content">
+            <a href="">Schedule</a>
+            <a href="">Rankings</a>
+            <a href="">Grand Slams</a>
+        </div>
+    </div>
+</div>
+
+<p>
+    Select Season:
+    <select id="season-select">
+        <option value="2025-26">2025-2026</option>
+        <option value="2024-25">2024-2025</option>
+    </select>
+</p>
+
+<div id="standings-container"></div>
+
+<script>
+const nflData = {
+            "2024-25": {
             "Atlantic": [
                 {
                     team: "Boston Celtics",
                     logo: "https://cdn.nba.com/logos/nba/1610612738/primary/L/logo.svg",
-                    w: 61, l: 21, pct: ".744", gb: "-", l10: "8-2", home: "28-13",
-                    away: "33-8", conf: "39-13", div: "14-2", streak: "W2"    
-                },
-                {
-                    team: "New York Knicks",
-                    logo: "https://cdn.nba.com/logos/nba/1610612752/primary/L/logo.svg",
-                    w: 51, l: 31, pct: ".622", gb: "10", l10: "6-4", home: "27-14",
-                    away: "24-17", conf: "34-18", div: "12-4", streak: "W1"
-                },
-                {
-                    team: "Toronto Raptors",
-                    logo: "https://cdn.nba.com/logos/nba/1610612761/primary/L/logo.svg",
-                    w: 30, l: 52, pct: ".366", gb: "31", l10: "5-5", home: "18-23",
-                    away: "12-29", conf: "21-31", div: "8-8", streak: "L2"
+                    w: 0, l: 0, t: 0, home: "0-0", away: "0-0",
+                    div: "0-0", conf: "0-0", pf: 0, pa: 0, streak: "N/A", lastGames: []
                 },
                 {
                     team: "Brooklyn Nets",
                     logo: "https://cdn.nba.com/logos/nba/1610612751/primary/L/logo.svg",
-                    w: 26, l: 56, pct: ".317", gb: "35", l10: "3-7", home: "12-29",
-                    away: "14-27", conf: "14-37", div: "3-13", streak: "L3"
+                    w: 0, l: 0, t: 0, home: "0-0", away: "0-0",
+                    div: "0-0", conf: "0-0", pf: 0, pa: 0, streak: "N/A", lastGames: []
+                },
+                {
+                    team: "New York Knicks",
+                    logo: "https://cdn.nba.com/logos/nba/1610612752/primary/L/logo.svg",
+                    w: 0, l: 0, t: 0, home: "0-0", away: "0-0",
+                    div: "0-0", conf: "0-0", pf: 0, pa: 0, streak: "N/A", lastGames: []
                 },
                 {
                     team: "Philadelphia 76ers",
                     logo: "https://cdn.nba.com/logos/nba/1610612755/primary/L/logo.svg",
-                    w: 24, l: 58, pct: ".293", gb: "37", l10: "1-9", home: "12-29",
-                    away: "12-29", conf: "15-37", div: "3-13", streak: "L2"
+                    w: 0, l: 0, t: 0, home: "0-0", away: "0-0",
+                    div: "0-0", conf: "0-0", pf: 0, pa: 0, streak: "N/A", lastGames: []
+                },
+                {
+                    team: "Toronto Raptors",
+                    logo: "https://cdn.nba.com/logos/nba/1610612761/primary/L/logo.svg",
+                    w: 0, l: 0, t: 0, home: "0-0", away: "0-0",
+                    div: "0-0", conf: "0-0", pf: 0, pa: 0, streak: "N/A", lastGames: []
                 }
+                
             ],
             "Central": [
                 {
+                    team: "Chicago Bulls",
+                    logo: "https://cdn.nba.com/logos/nba/1610612741/primary/L/logo.svg",
+                    w: 0, l: 0, t: 0, home: "0-0", away: "0-0",
+                    div: "0-0", conf: "0-0", pf: 0, pa: 0, streak: "N/A", lastGames: []
+                },
+                {
                     team: "Cleveland Cavaliers",
                     logo: "https://cdn.nba.com/logos/nba/1610612739/primary/L/logo.svg",
-                    w: 64, l: 18, pct: ".780", gb: "-", l10: "6-4", home: "34-7",
-                    away: "30-11", conf: "41-11", div: "12-4", streak: "L1"
-                },
-                {
-                    team: "Indiana Pacers",
-                    logo: "https://cdn.nba.com/logos/nba/1610612754/primary/L/logo.svg",
-                    w: 50, l: 32, pct: ".610", gb: "14", l10: "8-2", home: "29-11",
-                    away: "20-20", conf: "29-22", div: "10-6", streak: "W1"
-                },
-                {
-                    team: "Milwaukee Bucks",
-                    logo: "https://cdn.nba.com/logos/nba/1610612749/primary/L/logo.svg",
-                    w: 48, l: 34, pct: ".585", gb: "16", l10: "8-2", home: "27-14",
-                    away: "20-20", conf: "31-21", div: "9-7", streak: "W8"
+                    w: 0, l: 0, t: 0, home: "0-0", away: "0-0",
+                    div: "0-0", conf: "0-0", pf: 0, pa: 0, streak: "N/A", lastGames: []
                 },
                 {
                     team: "Detroit Pistons",
                     logo: "https://cdn.nba.com/logos/nba/1610612765/primary/L/logo.svg",
-                    w: 44, l: 38, pct: ".537", gb: "20", l10: "4-6", home: "18-23",
-                    away: "21-20", conf: "29-23", div: "5-11", streak: "L1"
+                    w: 0, l: 0, t: 0, home: "0-0", away: "0-0",
+                    div: "0-0", conf: "0-0", pf: 0, pa: 0, streak: "N/A", lastGames: []
                 },
                 {
-                    team: "Chicago White Sox",
-                    logo: "https://www.mlbstatic.com/team-logos/team-cap-on-light/145.svg",
-                    w: 33, l: 65, pct: ".337", gb: "26.0", l10: "4-6", home: "21-29",
-                    away: "12-36", g500: "20-36", rs: 342, ra: 431, diff: -89, streak: "W1"
+                    team: "Indiana Pacers",
+                    logo: "https://cdn.nba.com/logos/nba/1610612754/primary/L/logo.svg",
+                    w: 0, l: 0, t: 0, home: "0-0", away: "0-0",
+                    div: "0-0", conf: "0-0", pf: 0, pa: 0, streak: "N/A", lastGames: []
+                },
+                {
+                    team: "Milwaukee Bucks",
+                    logo: "https://cdn.nba.com/logos/nba/1610612749/primary/L/logo.svg",
+                    w: 0, l: 0, t: 0, home: "0-0", away: "0-0",
+                    div: "0-0", conf: "0-0", pf: 0, pa: 0, streak: "N/A", lastGames: []
                 }
+                
             ],
-            "AL West": [
+            "Southeast": [
                 {
-                    team: "Houston Astros",
-                    logo: "https://www.mlbstatic.com/team-logos/team-primary-on-light/117.svg",
-                    w: 56, l: 41, pct: ".577", gb: "-", l10: "4-6", home: "33-19",
-                    away: "23-22", g500: "31-24", rs: 419, ra: 368, diff: 51, streak: "L2"
+                    team: "Atlanta Hawks",
+                    logo: "https://cdn.nba.com/logos/nba/1610612737/primary/L/logo.svg",
+                    w: 0, l: 0, t: 0, home: "0-0", away: "0-0",
+                    div: "0-0", conf: "0-0", pf: 0, pa: 0, streak: "N/A", lastGames: []
                 },
                 {
-                    team: "Seattle Mariners",
-                    logo: "https://www.mlbstatic.com/team-logos/team-primary-on-light/136.svg",
-                    w: 52, l: 45, pct: ".536", gb: "4.0", l10: "7-3", home: "26-21",
-                    away: "26-24", g500: "28-25", rs: 457, ra: 420, diff: 37, streak: "W4"
+                    team: "Charlotte Hornets",
+                    logo: "https://cdn.nba.com/logos/nba/1610612766/primary/L/logo.svg",
+                    w: 0, l: 0, t: 0, home: "0-0", away: "0-0",
+                    div: "0-0", conf: "0-0", pf: 0, pa: 0, streak: "N/A", lastGames: []
                 },
                 {
-                    team: "Texas Rangers",
-                    logo: "https://www.mlbstatic.com/team-logos/team-cap-on-light/140.svg",
-                    w: 49, l: 49, pct: ".500", gb: "7.5", l10: "6-4", home: "27-19",
-                    away: "22-30", g500: "25-32", rs: 395, ra: 346, diff: 49, streak: "W2"
+                    team: "Miami Heat",
+                    logo: "https://cdn.nba.com/logos/nba/1610612748/primary/L/logo.svg",
+                    w: 0, l: 0, t: 0, home: "0-0", away: "0-0",
+                    div: "0-0", conf: "0-0", pf: 0, pa: 0, streak: "N/A", lastGames: []
                 },
                 {
-                    team: "Los Angeles Angels",
-                    logo: "https://www.mlbstatic.com/team-logos/team-cap-on-light/108.svg",
-                    w: 48, l: 49, pct: ".495", gb: "8.0", l10: "5-5", home: "24-23",
-                    away: "24-26", g500: "28-29", rs: 424, ra: 485, diff: -61, streak: "W1"
+                    team: "Orlando Magic",
+                    logo: "https://cdn.nba.com/logos/nba/1610612753/primary/L/logo.svg",
+                    w: 0, l: 0, t: 0, home: "0-0", away: "0-0",
+                    div: "0-0", conf: "0-0", pf: 0, pa: 0, streak: "N/A", lastGames: []
                 },
                 {
-                    team: "Athletics",
-                    logo: "https://www.mlbstatic.com/team-logos/team-cap-on-light/133.svg",
-                    w: 41, l: 58, pct: ".414", gb: "12.0", l10: "5-5", home: "20-31",
-                    away: "21-27", g500: "23-40", rs: 423, ra: 559, diff: -136, streak: "L1"
+                    team: "Washington Wizards",
+                    logo: "https://cdn.nba.com/logos/nba/1610612764/primary/L/logo.svg",
+                    w: 0, l: 0, t: 0, home: "0-0", away: "0-0",
+                    div: "0-0", conf: "0-0", pf: 0, pa: 0, streak: "N/A", lastGames: []
                 }
+                
             ],
-             "NL East": [
+            "Northwest": [
                 {
-                    team: "Philadelphia Phillies",
-                    logo: "https://www.mlbstatic.com/team-logos/team-cap-on-light/143.svg",
-                    w: 55, l: 42, pct: ".567", gb: "-", l10: "4-6", home: "30-17",
-                    away: "25-25", g500: "25-27", rs: 443, ra: 381, diff: 62, streak: "L1"
+                    team: "Denver Nuggets",
+                    logo: "https://cdn.nba.com/logos/nba/1610612743/primary/L/logo.svg",
+                    w: 0, l: 0, t: 0, home: "0-0", away: "0-0",
+                    div: "0-0", conf: "0-0", pf: 0, pa: 0, streak: "N/A", lastGames: []
                 },
                 {
-                    team: "New York Mets",
-                    logo: "https://www.mlbstatic.com/team-logos/team-cap-on-light/121.svg",
-                    w: 55, l: 43, pct: ".561", gb: "0.5", l10: "5-5", home: "33-15",
-                    away: "22-28", g500: "25-20", rs: 430, ra: 389, diff: 41, streak: "L2"
+                    team: "Minnesota Timberwolves",
+                    logo: "https://cdn.nba.com/logos/nba/1610612750/primary/L/logo.svg",
+                    w: 0, l: 0, t: 0, home: "0-0", away: "0-0",
+                    div: "0-0", conf: "0-0", pf: 0, pa: 0, streak: "N/A", lastGames: []
                 },
                 {
-                    team: "Miami Marlins",
-                    logo: "https://www.mlbstatic.com/team-logos/team-cap-on-light/146.svg",
-                    w: 45, l: 51, pct: ".469", gb: "9.5", l10: "6-4", home: "21-27",
-                    away: "24-24", g500: "21-32", rs: 416, ra: 470, diff: -54, streak: "W3"
-                },
-                { 
-                    team: "Atlanta Braves",
-                    logo: "https://www.mlbstatic.com/team-logos/team-cap-on-light/144.svg",
-                    w: 43, l: 53, pct: ".448", gb: "11.5", l10: "4-6", home: "25-22",
-                    away: "18-31", g500: "26-32", rs: 395, ra: 389, diff: 6, streak: "W1"
+                    team: "Oklahoma City Thunder",
+                    logo: "https://cdn.nba.com/logos/nba/1610612760/primary/L/logo.svg",
+                    w: 0, l: 0, t: 0, home: "0-0", away: "0-0",
+                    div: "0-0", conf: "0-0", pf: 0, pa: 0, streak: "N/A", lastGames: []
                 },
                 {
-                    team: "Washington Nationals",
-                    logo: "https://www.mlbstatic.com/team-logos/team-cap-on-light/120.svg",
-                    w: 38, l: 59, pct: ".392", gb: "17.0", l10: "1-9", home: "18-29",
-                    away: "20-30", g500: "18-38", rs: 419, ra: 526, diff: -107, streak: "L5"
+                    team: "Portland Trail Blazers",
+                    logo: "https://cdn.nba.com/logos/nba/1610612757/primary/L/logo.svg",
+                    w: 0, l: 0, t: 0, home: "0-0", away: "0-0",
+                    div: "0-0", conf: "0-0", pf: 0, pa: 0, streak: "N/A", lastGames: []
+                },
+                {
+                    team: "Utah Jazz",
+                    logo: "https://cdn.nba.com/logos/nba/1610612762/primary/L/logo.svg",
+                    w: 0, l: 0, t: 0, home: "0-0", away: "0-0",
+                    div: "0-0", conf: "0-0", pf: 0, pa: 0, streak: "N/A", lastGames: []
                 }
+                
             ],
-            "NL Central": [
+            "Pacific": [
                 {
-                    team: "Chicago Cubs",
-                    logo: "https://www.mlbstatic.com/team-logos/team-cap-on-light/112.svg",
-                    w: 58, l: 39, pct: ".598", gb: "-", l10: "6-4", home: "31-16",
-                    away: "27-23", g500: "30-29", rs: 516, ra: 394, diff: 122, streak: "W3"
+                    team: "Golden State Warriors",
+                    logo: "https://cdn.nba.com/logos/nba/1610612744/primary/L/logo.svg",
+                    w: 0, l: 0, t: 0, home: "0-0", away: "0-0",
+                    div: "0-0", conf: "0-0", pf: 0, pa: 0, streak: "N/A", lastGames: []
                 },
                 {
-                    team: "Milwaukee Brewers",
-                    logo: "https://www.mlbstatic.com/team-logos/team-cap-on-light/158.svg",
-                    w: 57, l: 40, pct: ".588", gb: "1.0", l10: "9-1", home: "33-17",
-                    away: "24-23", g500: "29-22", rs: 459, ra: 376, diff: 83, streak: "W8"
+                    team: "Los Angeles Clippers",
+                    logo: "https://cdn.nba.com/logos/nba/1610612746/primary/L/logo.svg",
+                    w: 0, l: 0, t: 0, home: "0-0", away: "0-0",
+                    div: "0-0", conf: "0-0", pf: 0, pa: 0, streak: "N/A", lastGames: []
                 },
                 {
-                    team: "Cincinnati Reds",
-                    logo: "https://www.mlbstatic.com/team-logos/team-cap-on-light/113.svg",
-                    w: 51, l: 47, pct: ".520", gb: "7.5", l10: "5-5", home: "28-22",
-                    away: "23-25", g500: "22-29", rs: 449, ra: 414, diff: 35, streak: "W3"
+                    team: "Los Angeles Lakers",
+                    logo: "https://cdn.nba.com/logos/nba/1610612747/primary/L/logo.svg",
+                    w: 0, l: 0, t: 0, home: "0-0", away: "0-0",
+                    div: "0-0", conf: "0-0", pf: 0, pa: 0, streak: "N/A", lastGames: []
                 },
                 {
-                    team: "St. Louis Cardinals",
-                    logo: "https://www.mlbstatic.com/team-logos/team-cap-on-light/138.svg",
-                    w: 51, l: 47, pct: ".520", gb: "7.5", l10: "4-6", home: "29-20",
-                    away: "22-27", g500: "22-30", rs: 447, ra: 434, diff: 13, streak: "L1"
+                    team: "Phoenix Suns",
+                    logo: "https://cdn.nba.com/logos/nba/1610612756/primary/L/logo.svg",
+                    w: 0, l: 0, t: 0, home: "0-0", away: "0-0",
+                    div: "0-0", conf: "0-0", pf: 0, pa: 0, streak: "N/A", lastGames: []
                 },
                 {
-                    team: "Pittsburgh Pirates",
-                    logo: "https://www.mlbstatic.com/team-logos/team-cap-on-light/134.svg",
-                    w: 39, l: 59, pct: ".398", gb: "19.5", l10: "1-9", home: "26-22",
-                    away: "13-37", g500: "26-42", rs: 327, ra: 389, diff: -62, streak: "L1"
+                    team: "Sacramento Kings",
+                    logo: "https://cdn.nba.com/logos/nba/1610612758/primary/L/logo.svg",
+                    w: 0, l: 0, t: 0, home: "0-0", away: "0-0",
+                    div: "0-0", conf: "0-0", pf: 0, pa: 0, streak: "N/A", lastGames: []
                 }
+                
             ],
-             "NL West": [
+            "Southwest": [
                 {
-                    team: "Los Angeles Dodgers",
-                    logo: "https://www.mlbstatic.com/team-logos/team-cap-on-light/119.svg",
-                    w: 58, l: 40, pct: ".592", gb: "-", l10: "2-8", home: "33-18",
-                    away: "25-22", g500: "24-25", rs: 518, ra: 451, diff: 67, streak: "L1"
+                    team: "Dallas Mavericks",
+                    logo: "https://cdn.nba.com/logos/nba/1610612742/primary/L/logo.svg",
+                    w: 0, l: 0, t: 0, home: "0-0", away: "0-0",
+                    div: "0-0", conf: "0-0", pf: 0, pa: 0, streak: "N/A", lastGames: []
                 },
                 {
-                    team: "San Diego Padres",
-                    logo: "https://www.mlbstatic.com/team-logos/team-cap-on-light/135.svg",
-                    w: 53, l: 44, pct: ".546", gb: "4.5", l10: "6-4", home: "31-18",
-                    away: "22-26", g500: "20-32", rs: 390, ra: 378, diff: 12, streak: "W1"
+                    team: "Houston Rockets",
+                    logo: "https://cdn.nba.com/logos/nba/1610612745/primary/L/logo.svg",
+                    w: 0, l: 0, t: 0, home: "0-0", away: "0-0",
+                    div: "0-0", conf: "0-0", pf: 0, pa: 0, streak: "N/A", lastGames: []
                 },
                 {
-                    team: "San Francisco Giants",
-                    logo: "https://www.mlbstatic.com/team-logos/team-cap-on-light/137.svg",
-                    w: 52, l: 47, pct: ".525", gb: "6.5", l10: "5-5", home: "28-20",
-                    away: "24-27", g500: "28-24", rs: 402, ra: 392, diff: 10, streak: "L4"
+                    team: "Memphis Grizzlies",
+                    logo: "https://cdn.nba.com/logos/nba/1610612763/primary/L/logo.svg",
+                    w: 0, l: 0, t: 0, home: "0-0", away: "0-0",
+                    div: "0-0", conf: "0-0", pf: 0, pa: 0, streak: "N/A", lastGames: []
                 },
                 {
-                    team: "Arizona Diamondbacks",
-                    logo: "https://www.mlbstatic.com/team-logos/team-cap-on-light/109.svg",
-                    w: 48, l: 50, pct: ".490", gb: "10.0", l10: "5-5", home: "24-25",
-                    away: "24-25", g500: "28-31", rs: 500, ra: 491, diff: 9, streak: "W2"
+                    team: "New Orleans Pelicans",
+                    logo: " https://cdn.nba.com/logos/nba/1610612740/primary/L/logo.svg",
+                    w: 0, l: 0, t: 0, home: "0-0", away: "0-0",
+                    div: "0-0", conf: "0-0", pf: 0, pa: 0, streak: "N/A", lastGames: []
                 },
                 {
-                    team: "Colorado Rockies",
-                    logo: "https://www.mlbstatic.com/team-logos/team-cap-on-light/115.svg",
-                    w: 23, l: 74, pct: ".237", gb: "34.5", l10: "3-7", home: "11-36",
-                    away: "12-38", g500: "9-56", rs: 342, ra: 593, diff: -251, streak: "W1"
+                    team: "San Antonio Spurs",
+                    logo: "https://cdn.nba.com/logos/nba/1610612759/primary/L/logo.svg",
+                    w: 0, l: 0, t: 0, home: "0-0", away: "0-0",
+                    div: "0-0", conf: "0-0", pf: 0, pa: 0, streak: "N/A", lastGames: []
+                }                
+                
+            ]
+
+        },
+        "2025-26": {
+            "Atlantic": [
+                {
+                    team: "Boston Celtics",
+                    logo: "https://cdn.nba.com/logos/nba/1610612738/primary/L/logo.svg",
+                    w: 0, l: 0, t: 0, home: "0-0", away: "0-0",
+                    div: "0-0", conf: "0-0", pf: 0, pa: 0, streak: "N/A", lastGames: []
+                },
+                {
+                    team: "Brooklyn Nets",
+                    logo: "https://cdn.nba.com/logos/nba/1610612751/primary/L/logo.svg",
+                    w: 0, l: 0, t: 0, home: "0-0", away: "0-0",
+                    div: "0-0", conf: "0-0", pf: 0, pa: 0, streak: "N/A", lastGames: []
+                },
+                {
+                    team: "New York Knicks",
+                    logo: "https://cdn.nba.com/logos/nba/1610612752/primary/L/logo.svg",
+                    w: 0, l: 0, t: 0, home: "0-0", away: "0-0",
+                    div: "0-0", conf: "0-0", pf: 0, pa: 0, streak: "N/A", lastGames: []
+                },
+                {
+                    team: "Philadelphia 76ers",
+                    logo: "https://cdn.nba.com/logos/nba/1610612755/primary/L/logo.svg",
+                    w: 0, l: 0, t: 0, home: "0-0", away: "0-0",
+                    div: "0-0", conf: "0-0", pf: 0, pa: 0, streak: "N/A", lastGames: []
+                },
+                {
+                    team: "Toronto Raptors",
+                    logo: "https://cdn.nba.com/logos/nba/1610612761/primary/L/logo.svg",
+                    w: 0, l: 0, t: 0, home: "0-0", away: "0-0",
+                    div: "0-0", conf: "0-0", pf: 0, pa: 0, streak: "N/A", lastGames: []
                 }
+                
             ],
-        };
-
-        const container = document.getElementById("standings-container");
-
-        for (const [division, teams] of Object.entries(nflData)) {
-            const table = document.createElement("table");
-            table.className = "nfl-table";
-
-            // Division Header
-            const divHeaderRow = document.createElement("tr");
-            const divHeaderCell = document.createElement("td");
-            divHeaderCell.colSpan = 13;
-            divHeaderCell.className = "division-header";
-            divHeaderCell.textContent = division;
-            divHeaderRow.appendChild(divHeaderCell);
-            table.appendChild(divHeaderRow);
-
-            // Column Headers
-            const headerRow = document.createElement("tr");
-            const headers = ["Team", "W", "L", "Pct", "GB", "L10", "HOME", "AWAY", "CONF", "DIV", "STRK"];
-            headers.forEach(header => {
-                const th = document.createElement("th");
-                th.textContent = header;
-                headerRow.appendChild(th);
-            });
-            table.appendChild(headerRow);
-
-            // Team Rows
-            teams.forEach(team => {
-                const row = document.createElement("tr");
-
-                const teamCell = document.createElement("td");
-                teamCell.className = "nfl-cell";
-                const logoImg = document.createElement("img");
-                logoImg.src = team.logo;
-                logoImg.alt = team.team + " logo";
-                logoImg.className = "team-logo";
-                const teamName = document.createElement("span");
-                teamName.textContent = team.team;
-                teamCell.appendChild(logoImg);
-                teamCell.appendChild(teamName);
-                row.appendChild(teamCell);
-
-                const fields = ["w", "l", "pct", "gb", "l10", "home", "away", "conf", "div", "streak"];
-                fields.forEach(field => {
-                    const td = document.createElement("td");
-                    if (field === "diff") {
-                        td.className = team.diff > 0 ? "positive" : team.diff < 0 ? "negative" : "";
-                        td.textContent = (team.diff > 0 ? "+" : "") + team.diff;
-                    } else {
-                        td.textContent = team[field];
-                    }
-                    row.appendChild(td);
-                });
-
-                table.appendChild(row);
-            });
-
-            container.appendChild(table);
+            "Central": [
+                {
+                    team: "Chicago Bulls",
+                    logo: "https://cdn.nba.com/logos/nba/1610612741/primary/L/logo.svg",
+                    w: 0, l: 0, t: 0, home: "0-0", away: "0-0",
+                    div: "0-0", conf: "0-0", pf: 0, pa: 0, streak: "N/A", lastGames: []
+                },
+                {
+                    team: "Cleveland Cavaliers",
+                    logo: "https://cdn.nba.com/logos/nba/1610612739/primary/L/logo.svg",
+                    w: 0, l: 0, t: 0, home: "0-0", away: "0-0",
+                    div: "0-0", conf: "0-0", pf: 0, pa: 0, streak: "N/A", lastGames: []
+                },
+                {
+                    team: "Detroit Pistons",
+                    logo: "https://cdn.nba.com/logos/nba/1610612765/primary/L/logo.svg",
+                    w: 0, l: 0, t: 0, home: "0-0", away: "0-0",
+                    div: "0-0", conf: "0-0", pf: 0, pa: 0, streak: "N/A", lastGames: []
+                },
+                {
+                    team: "Indiana Pacers",
+                    logo: "https://cdn.nba.com/logos/nba/1610612754/primary/L/logo.svg",
+                    w: 0, l: 0, t: 0, home: "0-0", away: "0-0",
+                    div: "0-0", conf: "0-0", pf: 0, pa: 0, streak: "N/A", lastGames: []
+                },
+                {
+                    team: "Milwaukee Bucks",
+                    logo: "https://cdn.nba.com/logos/nba/1610612749/primary/L/logo.svg",
+                    w: 0, l: 0, t: 0, home: "0-0", away: "0-0",
+                    div: "0-0", conf: "0-0", pf: 0, pa: 0, streak: "N/A", lastGames: []
+                }
+                
+            ],
+            "Southeast": [
+                {
+                    team: "Atlanta Hawks",
+                    logo: "https://cdn.nba.com/logos/nba/1610612737/primary/L/logo.svg",
+                    w: 0, l: 0, t: 0, home: "0-0", away: "0-0",
+                    div: "0-0", conf: "0-0", pf: 0, pa: 0, streak: "N/A", lastGames: []
+                },
+                {
+                    team: "Charlotte Hornets",
+                    logo: "https://cdn.nba.com/logos/nba/1610612766/primary/L/logo.svg",
+                    w: 0, l: 0, t: 0, home: "0-0", away: "0-0",
+                    div: "0-0", conf: "0-0", pf: 0, pa: 0, streak: "N/A", lastGames: []
+                },
+                {
+                    team: "Miami Heat",
+                    logo: "https://cdn.nba.com/logos/nba/1610612748/primary/L/logo.svg",
+                    w: 0, l: 0, t: 0, home: "0-0", away: "0-0",
+                    div: "0-0", conf: "0-0", pf: 0, pa: 0, streak: "N/A", lastGames: []
+                },
+                {
+                    team: "Orlando Magic",
+                    logo: "https://cdn.nba.com/logos/nba/1610612753/primary/L/logo.svg",
+                    w: 0, l: 0, t: 0, home: "0-0", away: "0-0",
+                    div: "0-0", conf: "0-0", pf: 0, pa: 0, streak: "N/A", lastGames: []
+                },
+                {
+                    team: "Washington Wizards",
+                    logo: "https://cdn.nba.com/logos/nba/1610612764/primary/L/logo.svg",
+                    w: 0, l: 0, t: 0, home: "0-0", away: "0-0",
+                    div: "0-0", conf: "0-0", pf: 0, pa: 0, streak: "N/A", lastGames: []
+                }
+                
+            ],
+            "Northwest": [
+                {
+                    team: "Denver Nuggets",
+                    logo: "https://cdn.nba.com/logos/nba/1610612743/primary/L/logo.svg",
+                    w: 0, l: 0, t: 0, home: "0-0", away: "0-0",
+                    div: "0-0", conf: "0-0", pf: 0, pa: 0, streak: "N/A", lastGames: []
+                },
+                {
+                    team: "Minnesota Timberwolves",
+                    logo: "https://cdn.nba.com/logos/nba/1610612750/primary/L/logo.svg",
+                    w: 0, l: 0, t: 0, home: "0-0", away: "0-0",
+                    div: "0-0", conf: "0-0", pf: 0, pa: 0, streak: "N/A", lastGames: []
+                },
+                {
+                    team: "Oklahoma City Thunder",
+                    logo: "https://cdn.nba.com/logos/nba/1610612760/primary/L/logo.svg",
+                    w: 0, l: 0, t: 0, home: "0-0", away: "0-0",
+                    div: "0-0", conf: "0-0", pf: 0, pa: 0, streak: "N/A", lastGames: []
+                },
+                {
+                    team: "Portland Trail Blazers",
+                    logo: "https://cdn.nba.com/logos/nba/1610612757/primary/L/logo.svg",
+                    w: 0, l: 0, t: 0, home: "0-0", away: "0-0",
+                    div: "0-0", conf: "0-0", pf: 0, pa: 0, streak: "N/A", lastGames: []
+                },
+                {
+                    team: "Utah Jazz",
+                    logo: "https://cdn.nba.com/logos/nba/1610612762/primary/L/logo.svg",
+                    w: 0, l: 0, t: 0, home: "0-0", away: "0-0",
+                    div: "0-0", conf: "0-0", pf: 0, pa: 0, streak: "N/A", lastGames: []
+                }
+                
+            ],
+            "Pacific": [
+                {
+                    team: "Golden State Warriors",
+                    logo: "https://cdn.nba.com/logos/nba/1610612744/primary/L/logo.svg",
+                    w: 0, l: 0, t: 0, home: "0-0", away: "0-0",
+                    div: "0-0", conf: "0-0", pf: 0, pa: 0, streak: "N/A", lastGames: []
+                },
+                {
+                    team: "Los Angeles Clippers",
+                    logo: "https://cdn.nba.com/logos/nba/1610612746/primary/L/logo.svg",
+                    w: 0, l: 0, t: 0, home: "0-0", away: "0-0",
+                    div: "0-0", conf: "0-0", pf: 0, pa: 0, streak: "N/A", lastGames: []
+                },
+                {
+                    team: "Los Angeles Lakers",
+                    logo: "https://cdn.nba.com/logos/nba/1610612747/primary/L/logo.svg",
+                    w: 0, l: 0, t: 0, home: "0-0", away: "0-0",
+                    div: "0-0", conf: "0-0", pf: 0, pa: 0, streak: "N/A", lastGames: []
+                },
+                {
+                    team: "Phoenix Suns",
+                    logo: "https://cdn.nba.com/logos/nba/1610612756/primary/L/logo.svg",
+                    w: 0, l: 0, t: 0, home: "0-0", away: "0-0",
+                    div: "0-0", conf: "0-0", pf: 0, pa: 0, streak: "N/A", lastGames: []
+                },
+                {
+                    team: "Sacramento Kings",
+                    logo: "https://cdn.nba.com/logos/nba/1610612758/primary/L/logo.svg",
+                    w: 0, l: 0, t: 0, home: "0-0", away: "0-0",
+                    div: "0-0", conf: "0-0", pf: 0, pa: 0, streak: "N/A", lastGames: []
+                }
+                
+            ],
+            "Southwest": [
+                {
+                    team: "Dallas Mavericks",
+                    logo: "https://cdn.nba.com/logos/nba/1610612742/primary/L/logo.svg",
+                    w: 0, l: 0, t: 0, home: "0-0", away: "0-0",
+                    div: "0-0", conf: "0-0", pf: 0, pa: 0, streak: "N/A", lastGames: []
+                },
+                {
+                    team: "Houston Rockets",
+                    logo: "https://cdn.nba.com/logos/nba/1610612745/primary/L/logo.svg",
+                    w: 0, l: 0, t: 0, home: "0-0", away: "0-0",
+                    div: "0-0", conf: "0-0", pf: 0, pa: 0, streak: "N/A", lastGames: []
+                },
+                {
+                    team: "Memphis Grizzlies",
+                    logo: "https://cdn.nba.com/logos/nba/1610612763/primary/L/logo.svg",
+                    w: 0, l: 0, t: 0, home: "0-0", away: "0-0",
+                    div: "0-0", conf: "0-0", pf: 0, pa: 0, streak: "N/A", lastGames: []
+                },
+                {
+                    team: "New Orleans Pelicans",
+                    logo: " https://cdn.nba.com/logos/nba/1610612740/primary/L/logo.svg",
+                    w: 0, l: 0, t: 0, home: "0-0", away: "0-0",
+                    div: "0-0", conf: "0-0", pf: 0, pa: 0, streak: "N/A", lastGames: []
+                },
+                {
+                    team: "San Antonio Spurs",
+                    logo: "https://cdn.nba.com/logos/nba/1610612759/primary/L/logo.svg",
+                    w: 0, l: 0, t: 0, home: "0-0", away: "0-0",
+                    div: "0-0", conf: "0-0", pf: 0, pa: 0, streak: "N/A", lastGames: []
+                }                
+                
+            ]
+                
         }
-    </script>
-     <button id="darkModeToggle">🌙</button>"
+    };
+
+const container = document.getElementById("standings-container");
+const seasonSelect = document.getElementById("season-select");
+
+function calcPct(w, l) {
+    return w + l === 0 ? "0.000" : (w / (w + l)).toFixed(3);
+}
+
+function calcL10(team) {
+    const last10 = team.lastGames.slice(-10); // get last 10 games
+    const wins = last10.filter(g => g === "W").length;
+    const losses = last10.filter(g => g === "L").length;
+    return `${wins}-${losses}`;
+}
+
+function calcStreak(lastGames) {
+    if (lastGames.length === 0) return "N/A";
+    let result = lastGames[lastGames.length - 1];
+    let count = 1;
+    for (let i = lastGames.length - 2; i >= 0; i--) {
+        if (lastGames[i] === result) count++;
+        else break;
+    }
+    return result + count;
+}
+
+
+function addGame(team, result) {
+    // result is "W" or "L"
+    team.lastGames.push(result);
+    
+    // Update total W/L
+    team.w = team.lastGames.filter(g => g === "W").length;
+    team.l = team.lastGames.filter(g => g === "L").length;
+
+    // Update streak
+    let streakCount = 1;
+    for (let i = team.lastGames.length - 2; i >= 0; i--) {
+        if (team.lastGames[i] === result) streakCount++;
+        else break;
+    }
+    team.streak = result + streakCount;
+
+    // pct stays same as before
+    team.pct = calcPct(team.w, team.l);
+}
+
+
+
+function renderTables(season) {
+    const nflSeasons = nflData[season];
+    container.innerHTML = "";
+
+    for (const [division, teams] of Object.entries(nflSeasons)) {
+        // Calculate pct, diff, L10
+        teams.forEach(team => {
+            team.pct = calcPct(team.w, team.l);
+            team.diff = team.pf - team.pa;
+            team.l10 = calcL10(team);
+        });
+
+        teams.sort((a, b) => parseFloat(b.pct) - parseFloat(a.pct));
+
+        const first = teams[0];
+        teams.forEach(team => {
+            team.gb = team === first ? "-" : (((first.w - team.w) + (team.l - first.l)) / 2).toFixed(1);
+        });
+
+        const table = document.createElement("table");
+        table.className = "nfl-table";
+
+        const divHeaderRow = document.createElement("tr");
+        const divHeaderCell = document.createElement("td");
+        divHeaderCell.colSpan = 13;
+        divHeaderCell.className = "division-header";
+        divHeaderCell.textContent = division;
+        divHeaderRow.appendChild(divHeaderCell);
+        table.appendChild(divHeaderRow);
+
+        const headerRow = document.createElement("tr");
+        const headers = ["Team", "W", "L", "Pct", "GB", "L10", "HOME", "AWAY", "CONF", "DIV", "STRK"];
+        headers.forEach(header => {
+            const th = document.createElement("th");
+            th.textContent = header;
+            headerRow.appendChild(th);
+        });
+        table.appendChild(headerRow);
+
+        teams.forEach(team => {
+            const row = document.createElement("tr");
+
+            const teamCell = document.createElement("td");
+            teamCell.className = "nfl-cell";
+            const logoImg = document.createElement("img");
+            logoImg.src = team.logo;
+            logoImg.alt = team.team + " logo";
+            logoImg.className = "team-logo";
+            const teamName = document.createElement("span");
+            teamName.textContent = team.team;
+            teamCell.appendChild(logoImg);
+            teamCell.appendChild(teamName);
+            row.appendChild(teamCell);
+
+            const fields = ["w", "l", "pct", "gb", "l10", "home", "away", "conf", "div", "streak"];
+            fields.forEach(field => {
+                const td = document.createElement("td");
+                if (field === "gb") td.textContent = team.gb;
+                else if (field === "pct") td.textContent = team.pct;
+                else if (field === "l10") td.textContent = calcL10(team);
+                else if (["w", "l", "pf", "pa"].includes(field)) {
+                    td.contentEditable = true;
+                    td.textContent = team[field] || 0;
+                    td.addEventListener("input", () => {
+                        let newVal = parseInt(td.textContent) || 0;
+
+                        if (field === "w") {
+                            const oldW = team.lastGames.filter(g => g === "W").length;
+                            const diff = newVal - oldW;
+                            if (diff > 0) {
+                                for (let i = 0; i < diff; i++) team.lastGames.push("W");
+                            } else if (diff < 0) {
+                                // remove 'W' from the end
+                                for (let i = 0; i < -diff; i++) {
+                                    const idx = team.lastGames.lastIndexOf("W");
+                                    if (idx !== -1) team.lastGames.splice(idx, 1);
+                                }
+                            }
+                        } else if (field === "l") {
+                            const oldL = team.lastGames.filter(g => g === "L").length;
+                            const diff = newVal - oldL;
+                            if (diff > 0) {
+                                for (let i = 0; i < diff; i++) team.lastGames.push("L");
+                            } else if (diff < 0) {
+                                // remove 'L' from the end
+                                for (let i = 0; i < -diff; i++) {
+                                    const idx = team.lastGames.lastIndexOf("L");
+                                    if (idx !== -1) team.lastGames.splice(idx, 1);
+                                }
+                            }
+                        }
+
+                        team.w = team.lastGames.filter(g => g === "W").length;
+                        team.l = team.lastGames.filter(g => g === "L").length;
+                        team.streak = calcStreak(team.lastGames);
+
+                        team.pct = calcPct(team.w, team.l);
+                        team.diff = team.pf - team.pa;
+                        team.l10 = calcL10(team);
+
+                        renderTables(seasonSelect.value);
+                    });
+
+                } else td.textContent = team[field] || "";
+                row.appendChild(td);
+            });
+
+            table.appendChild(row);
+        });
+
+        container.appendChild(table);
+    }
+}
+
+const defaultSeason = Object.keys(nflData).sort().pop();
+seasonSelect.value = defaultSeason;
+renderTables(defaultSeason);
+
+seasonSelect.addEventListener("change", () => {
+    renderTables(seasonSelect.value);
+});
+</script>
+
+<button id="darkModeToggle">🌙</button>
 
 </body>
 </html>
