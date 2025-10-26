@@ -1,4 +1,4 @@
-// ===== NFL_Playoffs.js =====
+// ===== NFL_Playoffs.js (Dynamic Version) =====
 
 // Team colors lookup
 const teamColors = {
@@ -55,25 +55,16 @@ function getContrastYIQ(hexcolor) {
 // Get all teams in a conference
 function getConferenceTeams(conferencePrefix) {
     const divisions = Object.keys(nflData["2025-26"]).filter(div => div.startsWith(conferencePrefix));
-    const teams = divisions.flatMap(div => nflData["2025-26"][div]);
-
-    // Add divisionName to each team
-    teams.forEach(team => team.divisionName = divNameFromFull(divisions, team));
+    const teams = divisions.flatMap(div => {
+        const divTeams = nflData["2025-26"][div].map(team => ({ ...team, divisionName: div }));
+        return divTeams;
+    });
     return teams;
-}
-
-// Helper to map div string to division name
-function divNameFromFull(divisions, team) {
-    // divisions array has full names like "AFC North"
-    for (const div of divisions) {
-        if (nflData["2025-26"][div].includes(team)) return div;
-    }
-    return "";
 }
 
 // Sort teams according to simplified NFL tie-breakers
 function sortTeamsNFL(teams) {
-    return teams.sort((a, b) => {
+    return teams.slice().sort((a, b) => {
         const pctA = calcPct(a.w, a.l, a.t);
         const pctB = calcPct(b.w, b.l, b.t);
         if (pctA !== pctB) return pctB - pctA;
@@ -106,11 +97,12 @@ function getSeededTeams(teams) {
     return [...topSeeds, ...wildcards];
 }
 
-// Render playoff section for a conference
+// ===== Render playoff section dynamically =====
 function renderPlayoffSection(conference, containerId) {
     const teams = getConferenceTeams(conference);
     const seededTeams = getSeededTeams(teams);
 
+    // Determine sections dynamically based on seed
     const sections = {
         "Clinched a Playoff Spot": seededTeams.slice(0, 0),
         "In the Hunt": seededTeams.slice(0, 7),
@@ -136,6 +128,7 @@ function renderPlayoffSection(conference, containerId) {
 
         group.forEach(team => {
             const seed = seededTeams.indexOf(team) + 1;
+
             const card = document.createElement("div");
             card.className = "team-card";
 
@@ -166,6 +159,23 @@ function renderPlayoffSection(conference, containerId) {
 
         section.appendChild(grid);
         container.appendChild(section);
+    }
+}
+
+// ===== Dynamic record update helper =====
+function updateTeamRecord(teamName, w, l, t = 0) {
+    for (const conf of ["AFC", "NFC"]) {
+        const teams = getConferenceTeams(conf);
+        const team = teams.find(t => t.team === teamName);
+        if (team) {
+            team.w = w;
+            team.l = l;
+            team.t = t;
+
+            // Re-render playoffs dynamically
+            renderPlayoffSection(conf, conf.toLowerCase() + "-playoffs");
+            break;
+        }
     }
 }
 
