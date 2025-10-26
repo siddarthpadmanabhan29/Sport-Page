@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>NBA Schedule</title>
+    <link rel="stylesheet" type="text/css" href="../assets/css/sports.css">
+    <script defer src="../darkmode.js"></script>
+
+    <style>
+    body {
+        font-family: Arial, sans-serif;
+        transition: background-color 0.3s, color 0.3s;
+    }
+
+    .nba-cell {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 20px;
+        padding: 15px 20px;
+        border-radius: 15px;
+        background: #fff;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.3s;
+    }
+
+    .nba-cell:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 8px 18px rgba(0,0,0,0.15);
+    }
+
+    .dark-mode .nba-cell {
+        background: #1e1e1e;
+        box-shadow: 0 4px 12px rgba(255,255,255,0.05);
+    }
+
+    .team {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        min-width: 160px;
+    }
+
+    .team-logo {
+        width: 50px;
+        height: 50px;
+    }
+
+    .team-info {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .team-name {
+        font-weight: bold;
+        font-size: 16px;
+    }
+
+    .team-record {
+        font-size: 13px;
+        color: #777;
+    }
+
+    .dark-mode .team-record {
+        color: #bbb;
+    }
+
+    .score {
+        font-size: 22px;
+        font-weight: bold;
+        color: #222;
+        margin: 0 15px;
+    }
+
+    .dark-mode .score {
+        color: #fff;
+    }
+
+    .score.pending {
+        color: #aaa;
+        font-size: 16px;
+    }
+
+    .details {
+        text-align: right;
+        font-size: 14px;
+        color: #555;
+        min-width: 180px;
+    }
+
+    .dark-mode .details {
+        color: #ccc;
+    }
+
+    .content select,
+    .content input[type="text"],
+    .content input[type="date"] {
+        padding: 10px;
+        font-size: 16px;
+        border: 2px solid #ccc;
+        border-radius: 8px;
+        outline: none;
+        transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        margin-right: 10px;
+    }
+
+    .content select:hover,
+    .content input[type="text"]:hover,
+    .content input[type="date"]:hover,
+    .content select:focus,
+    .content input[type="text"]:focus,
+    .content input[type="date"]:focus {
+        border-color: red;
+        box-shadow: 0 0 5px rgba(253, 2, 2, 0.954);
+    }
+
+    .content select {
+        background-color: #fff;
+        color: #333;
+        appearance: none;
+        background-image: url("data:image/svg+xml;utf8,<svg fill='black' height='16' viewBox='0 0 24 24' width='16' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/></svg>");
+        background-repeat: no-repeat;
+        background-position: right 18px center;
+        background-size: 16px;
+        padding-right: 30px;
+    }
+</style>
+
+
+</head>
+
+<body>
+    <h1 class="logo">Sports Entertainment</h1>
+    <hr>
+
+    <!-- 🔹 Navigation Bar -->
+    <div class="bar">
+    <a href="../index.html">Home</a>
+
+    <div class="dropdown">
+        <button class="dropbtn">NFL</button>
+        <div class="dropdown-content">
+            <a href="../NFL/NFL_Teams.html">Teams</a>
+            <a href="../NFL/NFL_Schedule.html">Schedule</a>
+            <a href="../NFL/NFL_Standings.html">Standings</a>
+            <a href="../NFL/NFL_Playoffs.html">Playoffs</a>
+            <a href="../NFL/NFL_News.html">News</a>
+        </div>
+    </div>
+
+    <div class="dropdown">
+        <button class="dropbtn">NBA</button>
+        <div class="dropdown-content">
+            <a href="NBA_Teams.html">Teams</a>
+            <a href="NBA_Schedule.html">Schedule</a>
+            <a href="NBA_Standings.html">Standings</a>
+            <a href="">News</a>
+        </div>
+    </div>
+
+    <div class="dropdown">
+        <button class="dropbtn">MLB</button>
+        <div class="dropdown-content">
+            <a href="../MLB/MLB_Teams.html">Teams</a>
+            <a href="../MLB/MLB_Schedule.html">Schedule</a>
+            <a href="../MLB/MLB_Standings.html">Standings</a>
+            <a href="">News</a>
+        </div>
+    </div>
+
+    <div class="dropdown">
+        <button class="dropbtn">IPL</button>
+        <div class="dropdown-content">
+            <a href="../IPL/IPL_Teams.html">Teams</a>
+            <a href="../IPL/IPL_Schedule.html">Schedule</a>
+            <a href="../IPL/IPL_Standings.html">Standings</a>
+            <a href="">News</a>
+        </div>
+    </div>
+
+    <div class="dropdown">
+        <button class="dropbtn">Tennis</button>
+        <div class="dropdown-content">
+            <a href="">Schedule</a>
+            <a href="">Rankings</a>
+            <a href="">Grand Slams</a>
+        </div>
+    </div>
+</div>
+
+    <!-- 🔹 Filters -->
+    <div style="padding:16px">
+        <div class="content" style="display:flex; justify-content: space-between; margin-bottom: 20px;">
+            <div>
+                <label for="SeasonPicker">Season:</label>
+                <select id="SeasonPicker"></select>
+
+                <label for="DatePicker">Date:</label>
+                <input type="date" id="DatePicker">
+            </div>
+            <div> 
+                <input type="text" id="searchInput" placeholder="Search by team name...">
+            </div>
+        </div>
+
+        <div id="schedule" class="schedule"></div>
+    </div>
+
+    
+
+    <script>
+    const scheduleContainer = document.getElementById('schedule');
+    const seasonPicker = document.getElementById('SeasonPicker');
+    const datePicker = document.getElementById('DatePicker');
+    const searchInput = document.getElementById('searchInput');
+    const darkModeToggle = document.getElementById('darkModeToggle');
+
+    // Seasons (latest 3)
+    const currentYear = new Date().getFullYear();
+    const seasons = [];
+    for (let i = 0; i < 3; i++) {
+        const start = currentYear - i;
+        const end = (currentYear + 1 - i).toString().slice(-2);
+        seasons.push(`${start}-${end}`);
+    }
+
+    seasons.forEach(season => {
+        const opt = document.createElement('option');
+        opt.value = season;
+        opt.textContent = season;
+        seasonPicker.appendChild(opt);
+    });
+
+    async function loadSchedule(season, date, searchTerm = '') {
+        scheduleContainer.innerHTML = `<p style="text-align:center;">Loading...</p>`;
+
+        const monthKey = date.slice(0, 7); // YYYY-MM
+        const url = `schedule/${monthKey}.json`;
+
+        try {
+            const response = await fetch(url);
+            if (!response.ok) throw new Error("File not found");
+            const data = await response.json();
+
+            const games = data[date] || [];
+            renderSchedule(games, searchTerm);
+        } catch (error) {
+            scheduleContainer.innerHTML = `<p style="text-align:center;color:#777;">No data found for this date.</p>`;
+        }
+    }
+
+    function renderSchedule(games, searchTerm) {
+        scheduleContainer.innerHTML = '';
+        if (games.length === 0) {
+            scheduleContainer.innerHTML = `<p style="text-align:center;color:#777;">No games scheduled for this date.</p>`;
+            return;
+        }
+
+        games.forEach(game => {
+            const home = game.home;
+            const away = game.away;
+
+            if (
+                home.name.toLowerCase().includes(searchTerm) ||
+                away.name.toLowerCase().includes(searchTerm)
+            ) {
+                const div = document.createElement('div');
+                div.className = 'nba-cell';
+
+                const scoreHTML = game.score
+                    ? `<div class="score">${game.score.away} - ${game.score.home}</div>`
+                    : `<div class="score pending">@</div>`;
+
+                div.innerHTML = `
+                    <div class="team">
+                        <img class="team-logo" src="${away.logo}" alt="${away.name}">
+                        <div class="team-info">
+                            <div class="team-name">${away.name}</div>
+                            <div class="team-record">${away.record}</div>
+                        </div>
+                    </div>
+                    ${scoreHTML}
+                    <div class="team">
+                        <img class="team-logo" src="${home.logo}" alt="${home.name}">
+                        <div class="team-info">
+                            <div class="team-name">${home.name}</div>
+                            <div class="team-record">${home.record}</div>
+                        </div>
+                    </div>
+                    <div class="details">${game.time} | ${game.network}</div>
+                `;
+                scheduleContainer.appendChild(div);
+            }
+        });
+    }
+
+    function updateSchedule() {
+        const season = seasonPicker.value;
+        const date = datePicker.value;
+        const searchTerm = searchInput.value.toLowerCase();
+        if (date) loadSchedule(season, date, searchTerm);
+    }
+
+    seasonPicker.addEventListener('change', updateSchedule);
+    datePicker.addEventListener('change', updateSchedule);
+    searchInput.addEventListener('input', updateSchedule);
+
+    // -----------------------------
+    // Default — latest season & today's date in UTC+4
+    // -----------------------------
+    const now = new Date();
+    const utc4Offset = 4 * 60; // +4 hours in minutes
+    const localTime = new Date(now.getTime() + (utc4Offset - now.getTimezoneOffset()) * 60000);
+    const today = localTime.getFullYear() + '-' +
+                  String(localTime.getMonth() + 1).padStart(2, '0') + '-' +
+                  String(localTime.getDate()).padStart(2, '0');
+
+    seasonPicker.value = seasons[0];
+    datePicker.value = today;
+    loadSchedule(seasons[0], today);
+
+    // -----------------------------
+    // Optional: Dark Mode Toggle
+    // -----------------------------
+    darkModeToggle.addEventListener('click', () => {
+        document.body.classList.toggle('dark-mode');
+    });
+</script>
+<button id="darkModeToggle">🌙</button>
+</body>
+</html>

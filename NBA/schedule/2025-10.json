@@ -1,0 +1,34 @@
+{
+  "2025-10-25": [
+    {
+      "away": {
+        "name": "Houston Rockets",
+        "logo": "https://cdn.nba.com/logos/nba/1610612745/primary/L/logo.svg",
+        "record": "0-1"
+      },
+      "home": {
+        "name": "Oklahoma City Thunder",
+        "logo": "https://cdn.nba.com/logos/nba/1610612760/primary/L/logo.svg",
+        "record": "1-0"
+      },
+      "time": "7:30 PM ET",
+      "network": "ESPN",
+      "score": { "away": 125, "home": 124 }
+    },
+    {
+      "away": {
+        "name": "Golden State Warriors",
+        "logo": "https://cdn.nba.com/logos/nba/1610612744/primary/L/logo.svg",
+        "record": "1-0"
+      },
+      "home": {
+        "name": "Los Angeles Lakers",
+        "logo": "https://cdn.nba.com/logos/nba/1610612747/primary/L/logo.svg",
+        "record": "0-1"
+      },
+      "time": "10:00 PM ET",
+      "network": "TNT",
+      "score": { "away": 119, "home": 109 }
+    }
+  ]
+}
