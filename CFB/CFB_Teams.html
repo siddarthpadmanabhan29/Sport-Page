@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sports Entertainment | Live Data</title>
+    <link rel="stylesheet" type="text/css" href="../assets/css/sports.css">
+    <script defer src="../darkmode.js"></script>
+
+    <style>
+        #data {
+            margin: 30px auto;
+            max-width: 90%;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            font-family: Arial, sans-serif;
+            margin-top: 10px;
+        }
+        td, th {
+            border: 1px solid #ccc;
+            padding: 8px;
+            text-align: center;
+        }
+        th {
+            background: #f5f5f5;
+        }
+        .section h2 {
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <h1 class="logo">Sports Entertainment</h1>
+    <hr>
+
+    <!-- Navigation Bar -->
+    <div class="bar">
+        <a href="../index.html">Home</a>
+        <div class="dropdown">
+            <button class="dropbtn">NFL</button>
+            <div class="dropdown-content">
+                <a href="../NFL/NFL_Teams.html">Teams</a>
+                <a href="../NFL/NFL_Schedule.html">Schedule</a>
+                <a href="../NFL/NFL_Standings.html">Standings</a>
+                <a href="../NFL/NFL_Playoffs.html">Playoffs</a>
+                <a href="../NFL/NFL_News.html">News</a>
+            </div>
+        </div>
+
+        <div class="dropdown">
+            <button class="dropbtn">CFB</button>
+            <div class="dropdown-content">
+                <a href="CFB_Teams.html">Teams</a>
+                <a href="CFB_Schedule.html">Schedule</a>
+                <a href="CFB_Standings.html">Standings</a>
+                <a href="CFB_Playoffs.html">Playoffs</a>
+                <a href="CFB_News.html">News</a>
+            </div>
+        </div>
+
+        <div class="dropdown">
+            <button class="dropbtn">NBA</button>
+            <div class="dropdown-content">
+                <a href="../NBA/NBA_Teams.html">Teams</a>
+                <a href="../NBA/NBA_Schedule.html">Schedule</a>
+                <a href="../NBA/NBA_Standings.html">Standings</a>
+                <a href="#">News</a>
+            </div>
+        </div>
+
+        <div class="dropdown">
+            <button class="dropbtn">MLB</button>
+            <div class="dropdown-content">
+                <a href="../MLB/MLB_Teams.html">Teams</a>
+                <a href="../MLB/MLB_Schedule.html">Schedule</a>
+                <a href="../MLB/MLB_Standings.html">Standings</a>
+                <a href="#">News</a>
+            </div>
+        </div>
+
+        <div class="dropdown">
+            <button class="dropbtn">IPL</button>
+            <div class="dropdown-content">
+                <a href="../IPL/IPL_Teams.html">Teams</a>
+                <a href="../IPL/IPL_Schedule.html">Schedule</a>
+                <a href="../IPL/IPL_Standings.html">Standings</a>
+                <a href="#">News</a>
+            </div>
+        </div>
+
+        <div class="dropdown">
+            <button class="dropbtn">Tennis</button>
+            <div class="dropdown-content">
+                <a href="#">Schedule</a>
+                <a href="#">Rankings</a>
+                <a href="#">Grand Slams</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Section -->
+    <div class="section">
+        <h2>📊 Live Google Sheet Data</h2>
+        <p style="text-align:center;">This table updates automatically from Google Sheets every minute.</p>
+        <div id="data">Loading data...</div>
+        <p id="last-updated" style="text-align:center; font-size: 0.9em; color: gray;"></p>
+    </div>
+
+
+    <button id="darkModeToggle">🌙</button>
+
+    <script>
+        const sheetUrl = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRA1s54eTJzIhVcjwlDyy-sKqase0__QQaESAXLdIP9m9eYTWRtErI_991__EVj1enbmYZKDpe6bncl/pub?output=csv";
+
+        async function loadSheet() {
+            try {
+                const res = await fetch(sheetUrl);
+                const text = await res.text();
+                const rows = text.trim().split("\n").map(r => r.split(","));
+
+                const html = `
+                    <table>
+                        <thead><tr>${rows[0].map(h => `<th>${h}</th>`).join("")}</tr></thead>
+                        <tbody>
+                            ${rows.slice(1).map(r => `<tr>${r.map(c => `<td>${c}</td>`).join("")}</tr>`).join("")}
+                        </tbody>
+                    </table>
+                `;
+                document.getElementById("data").innerHTML = html;
+
+                // Show last updated time
+                const now = new Date();
+                document.getElementById("last-updated").textContent =
+                    "Last updated: " + now.toLocaleTimeString();
+            } catch (err) {
+                document.getElementById("data").innerHTML = "Error loading data.";
+                console.error(err);
+            }
+        }
+
+        loadSheet();
+        setInterval(loadSheet, 60000); // Refresh every 60 seconds
+    </script>
+</body>
+</html>
