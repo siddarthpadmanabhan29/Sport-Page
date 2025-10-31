@@ -40,58 +40,143 @@ document.addEventListener("DOMContentLoaded",() =>{
         "Toronto Blue Jays": "https://www.mlbstatic.com/team-logos/team-cap-on-light/141.svg",
         "Washington Nationals": "https://www.mlbstatic.com/team-logos/team-cap-on-light/120.svg",
         
+    };
+
+    const teamColors = {
+        "Arizona Diamondbacks": "#A71930",
+        "Athletics": "#003831",
+        "Atlanta Braves": "#CE1141",
+        "Baltimore Orioles": "#DF4601",
+        "Boston Red Sox": "#BD3039",
+        "Chicago Cubs": "#0E3386",
+        "Chicago White Sox": "#27251F",
+        "Cincinnati Reds": "#C6011F",
+        "Cleveland Guardians": "#E31937",
+        "Colorado Rockies": "#33006F",
+        "Detroit Tigers": "#0C2340",
+        "Houston Astros": "#EB6E1F",
+        "Kansas City Royals": "#004687",
+        "Los Angeles Angels": "#BA0021",
+        "Los Angeles Dodgers": "#005A9C",
+        "Miami Marlins": "#00A3E0",
+        "Milwaukee Brewers": "#12284B",
+        "Minnesota Twins": "#002B5C",
+        "New York Mets": "#002D72",
+        "New York Yankees": "#1C2841",
+        "Philadelphia Phillies": "#E81828",
+        "Pittsburgh Pirates": "#FDB827",
+        "San Diego Padres": "#2F241D",
+        "San Francisco Giants": "#FD5A1E",
+        "Seattle Mariners": "#0C2C56",
+        "St. Louis Cardinals": "#C41E3A",
+        "Tampa Bay Rays": "#092C5C",
+        "Texas Rangers": "#003278",
+        "Toronto Blue Jays": "#134A8E",
+        "Washington Nationals": "#AB0003",
+    };
+
+    const teamLinks = {
+        "Arizona Diamondbacks": "https://www.mlb.com/dbacks",
+        "Athletics": "https://www.mlb.com/athletics",
+        "Atlanta Braves": "https://www.mlb.com/braves",
+        "Baltimore Orioles": "https://www.mlb.com/orioles",
+        "Boston Red Sox": "https://www.mlb.com/redsox",
+        "Chicago Cubs": "https://www.mlb.com/cubs",
+        "Chicago White Sox": "https://www.mlb.com/whitesox",
+        "Cincinnati Reds": "https://www.mlb.com/reds",
+        "Cleveland Guardians": "https://www.mlb.com/guardians",
+        "Colorado Rockies": "https://www.mlb.com/rockies",
+        "Detroit Tigers": "https://www.mlb.com/tigers",
+        "Houston Astros": "https://www.mlb.com/astros",
+        "Kansas City Royals": "https://www.mlb.com/royals",
+        "Los Angeles Angels": "https://www.mlb.com/angels",
+        "Los Angeles Dodgers": "https://www.mlb.com/dodgers",
+        "Miami Marlins": "https://www.mlb.com/marlins",
+        "Milwaukee Brewers": "https://www.mlb.com/brewers",
+        "Minnesota Twins": "https://www.mlb.com/twins",
+        "New York Mets": "https://www.mlb.com/mets",
+        "New York Yankees": "https://www.mlb.com/yankees",
+        "Philadelphia Phillies": "https://www.mlb.com/phillies",
+        "Pittsburgh Pirates": "https://www.mlb.com/pirates",
+        "San Diego Padres": "https://www.mlb.com/padres",
+        "San Francisco Giants": "https://www.mlb.com/giants",
+        "Seattle Mariners": "https://www.mlb.com/mariners",
+        "St. Louis Cardinals": "https://www.mlb.com/cardinals",
+        "Tampa Bay Rays": "https://www.mlb.com/rays",
+        "Texas Rangers": "https://www.mlb.com/rangers",
+        "Toronto Blue Jays": "https://www.mlb.com/bluejays",
+        "Washington Nationals": "https://www.mlb.com/nationals",
+    };
+
+    function getContrastYIQ(hexcolor) {
+        const hex = hexcolor.replace("#", "");
+        const r = parseInt(hex.substring(0, 2), 16);
+        const g = parseInt(hex.substring(2, 2), 16);
+        const b = parseInt(hex.substring(4, 2), 16);
+        const luminance = (0.299 * r + 0.587 * g + 0.114 * b);
+        return luminance >= 150 ? "#000000" : "#FFFFFF";
     }
 
     const container = document.getElementById("nfl-container");
 
     for (const [division, teams] of Object.entries(divisions)) {
         //Creates a table for each division
-        const table = document.createElement("table");
-        table.classList.add("nfl-table");
+        const divisionTitle = document.createElement("div");
+        divisionTitle.className = "division-header";
+        divisionTitle.textContent = division;
+        container.appendChild(divisionTitle);
 
-        // Creates a header row for the division name
-        const headerRow = document.createElement("tr");
-        const header = document.createElement("th");
-        header.colSpan = "4";
-        header.textContent = division;
-        header.classList.add("nfl-header");
-        headerRow.appendChild(header);
-        table.appendChild(headerRow);
+        const grid = document.createElement("div");
+        grid.className = "team-grid";
 
-        // Creates a row for each team in the division
-        for (let i = 0; i< teams.length; i+=2){
-            const teamRow = document.createElement("tr");
-            for (let j = i; j < i+2 && j<teams.length; j++) {
-                const teamCell = document.createElement("td");
-                teamCell.classList.add("nfl-cell");
+        teams.forEach(team => {
+            const link = document.createElement("a");
+            link.href = teamLinks[team];
+            link.target = "_blank"; 
+            link.className = "team-link";
 
-                const logo = document.createElement("img");
-                logo.src = teamlogos[teams[j]] || ""; // Placeholder if logo not found
-                logo.alt = teams[j];
-                logo.classList.add("team-logo");
+            const card = document.createElement("div");
+            card.className = "team-card";
+            card.setAttribute("data-team", team.toLowerCase());
 
-                const name = document.createElement("span");
-                name.textContent = teams[j];
+            const logo = document.createElement("img");
+            logo.src = teamlogos[team];
+            logo.alt = team;
 
+            const name = document.createElement("div");
+            name.className = "team-name";
+            name.textContent = team;
 
-                teamCell.appendChild(logo);
-                teamCell.appendChild(name);
-                teamRow.appendChild(teamCell);
-            }
-            table.appendChild(teamRow);
-        }
-        container.appendChild(table);
-        //const teamRow = document.createElement("tr");
-        //teams.forEach(team => {
-            //const teamCell = document.createElement("td");
-            //teamCell.textContent = team;
-            //teamCell.style.padding = "10px";
-            //teamCell.style.border = "1px solid #ccc";
-            //teamRow.appendChild(teamCell);
-        //});
-        
+            card.appendChild(logo);
+            card.appendChild(name);
+            link.appendChild(card);
+            grid.appendChild(link);
+            
+            
 
+            card.addEventListener("mouseover", () => {
+                const color = teamColors[team] || "#ccc";
+                card.style.backgroundColor = color;
+                card.style.color = getContrastYIQ(color); 
+        });
 
-    }
+        card.addEventListener("mouseout", () => {
+            card.style.backgroundColor = "";
+            card.style.color = "";
+        });
+    });   
+    container.appendChild(grid);
+      
+}
 
+//Improve Search Functionality
+document.getElementById("search").addEventListener("input", (e)=> {
+    const query = e.target.value.toLowerCase();
+    document.querySelectorAll(".team-card").forEach(card => {
+        const name = card.getAttribute("data-team");
+        card.style.display = name.includes(query) ? "flex" : "none";
+    });
+});
+
+    
 });
